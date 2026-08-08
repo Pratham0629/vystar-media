@@ -18,7 +18,7 @@ export function FAQ() {
         <SectionHeading
           eyebrow="FAQ"
           title="Answers to common questions"
-          subtitle="Everything you need to know before partnering with Vistar Media."
+          subtitle="Everything you need to know before partnering with Vystar Media."
         />
 
         <motion.div

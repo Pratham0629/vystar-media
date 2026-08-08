@@ -158,7 +158,7 @@ export function AIAudit() {
                   required
                   value={businessName}
                   onChange={(e) => setBusinessName(e.target.value)}
-                  placeholder="e.g. Vistar Tech, Apex Realty"
+                  placeholder="e.g. Vystar Tech, Apex Realty"
                   className="bg-background/80 border-border"
                 />
               </div>

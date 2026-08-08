@@ -18,7 +18,7 @@ export function Stats() {
               Our Vision & Future Targets
             </span>
             <p className="mx-auto mt-5 max-w-2xl text-sm text-navy-foreground/60 sm:text-base">
-              These are the milestones we are building towards as we grow Vistar
+              These are the milestones we are building towards as we grow Vystar
               Media into a globally competitive agency.
             </p>
           </div>

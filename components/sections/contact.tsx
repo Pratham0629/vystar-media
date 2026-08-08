@@ -180,7 +180,7 @@ export function Contact() {
             className="flex flex-col gap-4"
           >
             <InfoCard icon={Phone} title="Phone" lines={['+91 8468962914', '+91 7758894390', '+91 8329172035']} />
-            <InfoCard icon={Mail} title="Email" lines={['businesswithvistar@gmail.com']} />
+            <InfoCard icon={Mail} title="Email" lines={['businesswithvystar@gmail.com']} />
             <InfoCard
               icon={Clock}
               title="Business Hours"
@@ -222,7 +222,7 @@ export function Contact() {
 
             <div className="overflow-hidden rounded-2xl border border-border">
               <iframe
-                title="Vistar Media location"
+                title="Vystar Media location"
                 src="https://www.openstreetmap.org/export/embed.html?bbox=72.7400%2C19.6900%2C72.7700%2C19.7100&layer=mapnik&marker=19.6957%2C72.7516"
                 className="h-56 w-full"
                 loading="lazy"
