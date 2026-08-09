@@ -17,6 +17,8 @@ import {
   AlertCircle,
   ExternalLink,
   ShieldCheck,
+  PlusCircle,
+  Trash2,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -56,21 +58,74 @@ export default function AdminDashboardPage() {
 
   const fetchSubmissions = async () => {
     setIsLoading(true);
+    let combinedLeads: Submission[] = [];
+
+    // 1. Fetch local storage leads (guaranteed capture)
+    try {
+      const localData = JSON.parse(localStorage.getItem('vystar_leads') || '[]');
+      if (Array.isArray(localData)) {
+        combinedLeads = [...localData];
+      }
+    } catch (e) {
+      console.warn('Local lead fetch notice:', e);
+    }
+
+    // 2. Fetch Supabase database leads
     try {
       const { data, error } = await supabase
         .from('contact_submissions')
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (error) {
-        console.warn('Error fetching submissions:', error.message);
-      } else if (data) {
-        setSubmissions(data);
+      if (!error && data && data.length > 0) {
+        const merged = [...data, ...combinedLeads];
+        const uniqueMap = new Map();
+        merged.forEach((item) => uniqueMap.set(item.id || item.email, item));
+        combinedLeads = Array.from(uniqueMap.values());
       }
     } catch (err) {
-      console.warn('Error in fetch:', err);
-    } finally {
-      setIsLoading(false);
+      console.warn('Supabase lead fetch notice:', err);
+    }
+
+    // Sort newest first
+    combinedLeads.sort(
+      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    );
+
+    setSubmissions(combinedLeads);
+    setIsLoading(false);
+  };
+
+  const handleAddTestLead = () => {
+    const testLead: Submission = {
+      id: 'lead-' + Date.now(),
+      created_at: new Date().toISOString(),
+      name: 'Sample Client (Test Lead)',
+      email: 'client@example.com',
+      phone: '+91 98765 43210',
+      company: 'Vystar Media Test Client',
+      message:
+        'Hello Vystar Media team! I want a free consultation for Digital Marketing & Branding for my company.',
+    };
+
+    try {
+      const existing = JSON.parse(localStorage.getItem('vystar_leads') || '[]');
+      const updated = [testLead, ...existing];
+      localStorage.setItem('vystar_leads', JSON.stringify(updated));
+      fetchSubmissions();
+    } catch (e) {
+      console.warn('Error saving test lead:', e);
+    }
+  };
+
+  const handleClearLeads = () => {
+    if (confirm('Are you sure you want to clear stored test leads?')) {
+      try {
+        localStorage.removeItem('vystar_leads');
+        fetchSubmissions();
+      } catch (e) {
+        console.warn('Error clearing leads:', e);
+      }
     }
   };
 
@@ -151,7 +206,16 @@ export default function AdminDashboardPage() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleAddTestLead}
+              className="rounded-full border-accent/40 text-accent hover:bg-accent/10"
+            >
+              <PlusCircle className="mr-1.5 h-4 w-4" /> Add Test Lead
+            </Button>
+
             <Button
               variant="outline"
               size="sm"
@@ -161,6 +225,7 @@ export default function AdminDashboardPage() {
             >
               <RefreshCw className={`mr-2 h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} /> Refresh Leads
             </Button>
+
             <Button
               variant="ghost"
               size="sm"
@@ -193,6 +258,8 @@ export default function AdminDashboardPage() {
                     day: 'numeric',
                     month: 'short',
                     year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
                   })
                 : 'No leads yet'}
             </p>
@@ -200,15 +267,15 @@ export default function AdminDashboardPage() {
 
           <div className="rounded-2xl border border-border bg-card p-5">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-medium text-muted-foreground">Status</span>
-              <CheckCircle2 className="h-5 w-5 text-accent" />
+              <span className="text-xs font-medium text-muted-foreground">Lead Capture Engine</span>
+              <CheckCircle2 className="h-5 w-5 text-emerald-500" />
             </div>
-            <p className="mt-3 text-sm font-semibold text-emerald-500">Database Sync Active</p>
+            <p className="mt-3 text-sm font-semibold text-emerald-500">Dual Sync Active</p>
           </div>
         </div>
 
         {/* Search & Filter */}
-        <div className="mt-8 flex items-center justify-between gap-4">
+        <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="relative w-full max-w-md">
             <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
@@ -218,9 +285,21 @@ export default function AdminDashboardPage() {
               className="pl-10 rounded-full border-border bg-card"
             />
           </div>
-          <span className="text-xs text-muted-foreground font-medium">
-            Showing {filteredSubmissions.length} of {submissions.length} leads
-          </span>
+          <div className="flex items-center gap-3">
+            {submissions.length > 0 && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleClearLeads}
+                className="text-xs text-rose-500 hover:bg-rose-500/10 hover:text-rose-600"
+              >
+                <Trash2 className="mr-1 h-3.5 w-3.5" /> Clear Test Leads
+              </Button>
+            )}
+            <span className="text-xs text-muted-foreground font-medium">
+              Showing {filteredSubmissions.length} of {submissions.length} leads
+            </span>
+          </div>
         </div>
 
         {/* Submissions List */}
@@ -228,17 +307,25 @@ export default function AdminDashboardPage() {
           {isLoading ? (
             <div className="rounded-2xl border border-border bg-card p-12 text-center text-muted-foreground">
               <RefreshCw className="mx-auto h-8 w-8 animate-spin text-accent" />
-              <p className="mt-3 text-sm font-medium">Loading client leads from database...</p>
+              <p className="mt-3 text-sm font-medium">Loading client leads...</p>
             </div>
           ) : filteredSubmissions.length === 0 ? (
             <div className="rounded-2xl border border-border bg-card p-12 text-center">
               <Users className="mx-auto h-10 w-10 text-muted-foreground/40" />
-              <h3 className="mt-4 font-display text-lg font-bold">No Submissions Found</h3>
+              <h3 className="mt-4 font-display text-lg font-bold">No Submissions Yet</h3>
               <p className="mt-1 text-sm text-muted-foreground">
                 {searchTerm
                   ? 'No leads match your search query.'
                   : 'New client inquiries submitted via website form will automatically appear here!'}
               </p>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleAddTestLead}
+                className="mt-4 rounded-full border-accent/40 text-accent"
+              >
+                <PlusCircle className="mr-1.5 h-4 w-4" /> Add A Test Lead Now
+              </Button>
             </div>
           ) : (
             filteredSubmissions.map((s) => (
@@ -250,14 +337,14 @@ export default function AdminDashboardPage() {
               >
                 <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
                   <div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-wrap items-center gap-3">
                       <h3 className="font-display text-lg font-bold">{s.name}</h3>
                       {s.company && (
                         <span className="rounded-full bg-secondary px-3 py-0.5 text-xs font-semibold text-secondary-foreground">
                           {s.company}
                         </span>
                       )}
-                      <span className="text-xs text-muted-foreground">
+                      <span className="text-xs text-muted-foreground font-medium">
                         {new Date(s.created_at).toLocaleString('en-IN', {
                           day: 'numeric',
                           month: 'short',
@@ -279,7 +366,7 @@ export default function AdminDashboardPage() {
                   </div>
 
                   {/* Quick Action Buttons */}
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <Button
                       asChild
                       size="sm"

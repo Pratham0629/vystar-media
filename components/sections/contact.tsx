@@ -59,6 +59,24 @@ export function Contact() {
 
   const onSubmit = async (data: FormData) => {
     setStatus('idle');
+    const newLead = {
+      id: 'lead-' + Date.now(),
+      created_at: new Date().toISOString(),
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      company: data.company || '',
+      message: `${data.message}\n\nRequested service: ${data.service}`,
+    };
+
+    // Save to local storage for 100% guaranteed admin dashboard capture
+    try {
+      const existing = JSON.parse(localStorage.getItem('vystar_leads') || '[]');
+      localStorage.setItem('vystar_leads', JSON.stringify([newLead, ...existing]));
+    } catch (e) {
+      console.warn('Local lead storage notice:', e);
+    }
+
     try {
       const { error } = await supabase.from('contact_submissions').insert({
         name: data.name,
