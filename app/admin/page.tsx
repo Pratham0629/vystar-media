@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Users,
   Search,
@@ -18,9 +18,15 @@ import {
   ExternalLink,
   ShieldCheck,
   Trash2,
+  Edit3,
+  Save,
+  X,
+  Tag,
+  Check,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import { supabase } from '@/lib/supabase';
 import { Logo } from '@/components/logo';
 
@@ -32,6 +38,7 @@ type Submission = {
   phone: string;
   company?: string;
   message: string;
+  status?: string;
 };
 
 export default function AdminDashboardPage() {
@@ -41,6 +48,11 @@ export default function AdminDashboardPage() {
   const [submissions, setSubmissions] = React.useState<Submission[]>([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState('');
+  
+  // Edit State
+  const [editingId, setEditingId] = React.useState<string | null>(null);
+  const [editForm, setEditForm] = React.useState<Partial<Submission>>({});
+  const [isSaving, setIsSaving] = React.useState(false);
 
   const ADMIN_PASSCODE = 'vystar847783';
 
@@ -58,9 +70,6 @@ export default function AdminDashboardPage() {
 
   const fetchSubmissions = async () => {
     setIsLoading(true);
-    let combinedLeads: Submission[] = [];
-
-    // Fetch live Supabase database leads
     try {
       const { data, error } = await supabase
         .from('contact_submissions')
@@ -68,19 +77,88 @@ export default function AdminDashboardPage() {
         .order('created_at', { ascending: false });
 
       if (!error && data) {
-        combinedLeads = data;
+        setSubmissions(data);
       }
     } catch (err) {
       console.warn('Supabase lead fetch notice:', err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleDelete = async (id: string, name: string) => {
+    if (!confirm(`Are you sure you want to delete the submission from "${name}"?`)) {
+      return;
     }
 
-    // Sort newest first
-    combinedLeads.sort(
-      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-    );
+    try {
+      const { error } = await supabase
+        .from('contact_submissions')
+        .delete()
+        .eq('id', id);
 
-    setSubmissions(combinedLeads);
-    setIsLoading(false);
+      if (error) {
+        alert('Error deleting submission: ' + error.message);
+      } else {
+        setSubmissions((prev) => prev.filter((s) => s.id !== id));
+      }
+    } catch (err) {
+      console.warn('Delete error:', err);
+    }
+  };
+
+  const handleStartEdit = (lead: Submission) => {
+    setEditingId(lead.id);
+    setEditForm({
+      name: lead.name,
+      email: lead.email,
+      phone: lead.phone,
+      company: lead.company || '',
+      message: lead.message,
+      status: lead.status || 'new',
+    });
+  };
+
+  const handleSaveEdit = async (id: string) => {
+    setIsSaving(true);
+    try {
+      const { error } = await supabase
+        .from('contact_submissions')
+        .update({
+          name: editForm.name,
+          email: editForm.email,
+          phone: editForm.phone,
+          company: editForm.company || null,
+          message: editForm.message,
+          status: editForm.status || 'new',
+        })
+        .eq('id', id);
+
+      if (error) {
+        alert('Error updating submission: ' + error.message);
+      } else {
+        setSubmissions((prev) =>
+          prev.map((s) =>
+            s.id === id
+              ? {
+                  ...s,
+                  name: editForm.name || s.name,
+                  email: editForm.email || s.email,
+                  phone: editForm.phone || s.phone,
+                  company: editForm.company,
+                  message: editForm.message || s.message,
+                  status: editForm.status || s.status,
+                }
+              : s
+          )
+        );
+        setEditingId(null);
+      }
+    } catch (err) {
+      console.warn('Save edit error:', err);
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const filteredSubmissions = submissions.filter((s) => {
@@ -90,7 +168,8 @@ export default function AdminDashboardPage() {
       s.email.toLowerCase().includes(search) ||
       s.phone.toLowerCase().includes(search) ||
       (s.company && s.company.toLowerCase().includes(search)) ||
-      s.message.toLowerCase().includes(search)
+      s.message.toLowerCase().includes(search) ||
+      (s.status && s.status.toLowerCase().includes(search))
     );
   });
 
@@ -245,7 +324,7 @@ export default function AdminDashboardPage() {
           ) : filteredSubmissions.length === 0 ? (
             <div className="rounded-2xl border border-border bg-card p-12 text-center">
               <Users className="mx-auto h-10 w-10 text-muted-foreground/40" />
-              <h3 className="mt-4 font-display text-lg font-bold">No Submissions Yet</h3>
+              <h3 className="mt-4 font-display text-lg font-bold">No Submissions Found</h3>
               <p className="mt-1 text-sm text-muted-foreground">
                 {searchTerm
                   ? 'No leads match your search query.'
@@ -253,89 +332,176 @@ export default function AdminDashboardPage() {
               </p>
             </div>
           ) : (
-            filteredSubmissions.map((s) => (
-              <motion.div
-                key={s.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="group rounded-2xl border border-border bg-card p-6 transition-all hover:border-accent/40 hover:shadow-lg"
-              >
-                <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
-                  <div>
-                    <div className="flex flex-wrap items-center gap-3">
-                      <h3 className="font-display text-lg font-bold">{s.name}</h3>
-                      {s.company && (
-                        <span className="rounded-full bg-secondary px-3 py-0.5 text-xs font-semibold text-secondary-foreground">
-                          {s.company}
-                        </span>
-                      )}
-                      <span className="text-xs text-muted-foreground font-medium">
-                        {new Date(s.created_at).toLocaleString('en-IN', {
-                          day: 'numeric',
-                          month: 'short',
-                          year: 'numeric',
-                          hour: '2-digit',
-                          minute: '2-digit',
-                        })}
-                      </span>
+            filteredSubmissions.map((s) => {
+              const isEditing = editingId === s.id;
+
+              return (
+                <motion.div
+                  key={s.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  className="group rounded-2xl border border-border bg-card p-6 transition-all hover:border-accent/40 hover:shadow-lg"
+                >
+                  {isEditing ? (
+                    /* Edit Form Mode */
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between border-b border-border pb-3">
+                        <h4 className="font-display font-bold text-accent">Edit Client Submission</h4>
+                        <div className="flex items-center gap-2">
+                          <Button
+                            size="sm"
+                            onClick={() => handleSaveEdit(s.id)}
+                            disabled={isSaving}
+                            className="rounded-full bg-emerald-600 hover:bg-emerald-500 text-white"
+                          >
+                            <Save className="mr-1.5 h-3.5 w-3.5" /> Save Changes
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => setEditingId(null)}
+                            className="rounded-full"
+                          >
+                            <X className="mr-1.5 h-3.5 w-3.5" /> Cancel
+                          </Button>
+                        </div>
+                      </div>
+
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        <div>
+                          <label className="text-xs font-semibold text-muted-foreground">Client Name</label>
+                          <Input
+                            value={editForm.name || ''}
+                            onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
+                            className="mt-1"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-xs font-semibold text-muted-foreground">Email Address</label>
+                          <Input
+                            value={editForm.email || ''}
+                            onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
+                            className="mt-1"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-xs font-semibold text-muted-foreground">Phone Number</label>
+                          <Input
+                            value={editForm.phone || ''}
+                            onChange={(e) => setEditForm({ ...editForm, phone: e.target.value })}
+                            className="mt-1"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-xs font-semibold text-muted-foreground">Company Name</label>
+                          <Input
+                            value={editForm.company || ''}
+                            onChange={(e) => setEditForm({ ...editForm, company: e.target.value })}
+                            className="mt-1"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="text-xs font-semibold text-muted-foreground">Lead Message / Notes</label>
+                        <Textarea
+                          rows={4}
+                          value={editForm.message || ''}
+                          onChange={(e) => setEditForm({ ...editForm, message: e.target.value })}
+                          className="mt-1"
+                        />
+                      </div>
                     </div>
+                  ) : (
+                    /* Display Mode */
+                    <>
+                      <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+                        <div>
+                          <div className="flex flex-wrap items-center gap-3">
+                            <h3 className="font-display text-lg font-bold">{s.name}</h3>
+                            {s.company && (
+                              <span className="rounded-full bg-secondary px-3 py-0.5 text-xs font-semibold text-secondary-foreground">
+                                {s.company}
+                              </span>
+                            )}
+                            <span className="text-xs text-muted-foreground font-medium">
+                              {new Date(s.created_at).toLocaleString('en-IN', {
+                                day: 'numeric',
+                                month: 'short',
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                              })}
+                            </span>
+                          </div>
 
-                    <div className="mt-2 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                      <span className="flex items-center gap-1.5 font-medium text-foreground">
-                        <Mail className="h-4 w-4 text-accent" /> {s.email}
-                      </span>
-                      <span className="flex items-center gap-1.5 font-medium text-foreground">
-                        <Phone className="h-4 w-4 text-accent" /> {s.phone}
-                      </span>
-                    </div>
-                  </div>
+                          <div className="mt-2 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                            <span className="flex items-center gap-1.5 font-medium text-foreground">
+                              <Mail className="h-4 w-4 text-accent" /> {s.email}
+                            </span>
+                            <span className="flex items-center gap-1.5 font-medium text-foreground">
+                              <Phone className="h-4 w-4 text-accent" /> {s.phone}
+                            </span>
+                          </div>
+                        </div>
 
-                  {/* Quick Action Buttons */}
-                  <div className="flex flex-wrap items-center gap-2">
-                    <Button
-                      asChild
-                      size="sm"
-                      variant="outline"
-                      className="rounded-full border-emerald-500/30 text-emerald-600 hover:bg-emerald-500/10 hover:text-emerald-500 dark:text-emerald-400"
-                    >
-                      <a
-                        href={`https://wa.me/${s.phone.replace(/[^0-9]/g, '')}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <MessageSquare className="mr-1.5 h-3.5 w-3.5" /> WhatsApp
-                      </a>
-                    </Button>
+                        {/* Action Buttons */}
+                        <div className="flex flex-wrap items-center gap-2">
+                          <Button
+                            asChild
+                            size="sm"
+                            variant="outline"
+                            className="rounded-full border-emerald-500/30 text-emerald-600 hover:bg-emerald-500/10 hover:text-emerald-500 dark:text-emerald-400"
+                          >
+                            <a
+                              href={`https://wa.me/${s.phone.replace(/[^0-9]/g, '')}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <MessageSquare className="mr-1.5 h-3.5 w-3.5" /> WhatsApp
+                            </a>
+                          </Button>
 
-                    <Button
-                      asChild
-                      size="sm"
-                      variant="outline"
-                      className="rounded-full"
-                    >
-                      <a href={`tel:${s.phone}`}>
-                        <Phone className="mr-1.5 h-3.5 w-3.5" /> Call
-                      </a>
-                    </Button>
+                          <Button
+                            asChild
+                            size="sm"
+                            variant="outline"
+                            className="rounded-full"
+                          >
+                            <a href={`tel:${s.phone}`}>
+                              <Phone className="mr-1.5 h-3.5 w-3.5" /> Call
+                            </a>
+                          </Button>
 
-                    <Button
-                      asChild
-                      size="sm"
-                      variant="outline"
-                      className="rounded-full"
-                    >
-                      <a href={`mailto:${s.email}`}>
-                        <Mail className="mr-1.5 h-3.5 w-3.5" /> Email
-                      </a>
-                    </Button>
-                  </div>
-                </div>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleStartEdit(s)}
+                            className="rounded-full"
+                          >
+                            <Edit3 className="mr-1.5 h-3.5 w-3.5" /> Edit
+                          </Button>
 
-                <div className="mt-4 rounded-xl border border-border/60 bg-secondary/30 p-4 text-sm text-foreground">
-                  <p className="whitespace-pre-wrap leading-relaxed">{s.message}</p>
-                </div>
-              </motion.div>
-            ))
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => handleDelete(s.id, s.name)}
+                            className="rounded-full text-rose-500 hover:bg-rose-500/10 hover:text-rose-600"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+
+                      <div className="mt-4 rounded-xl border border-border/60 bg-secondary/30 p-4 text-sm text-foreground">
+                        <p className="whitespace-pre-wrap leading-relaxed">{s.message}</p>
+                      </div>
+                    </>
+                  )}
+                </motion.div>
+              );
+            })
           )}
         </div>
       </div>
