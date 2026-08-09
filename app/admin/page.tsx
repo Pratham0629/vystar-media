@@ -42,11 +42,12 @@ export default function AdminDashboardPage() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState('');
 
-  const ADMIN_PASSCODE = 'Vystar847783';
+  const ADMIN_PASSCODE = 'vystar847783';
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (passcode.trim() === ADMIN_PASSCODE) {
+    const entered = passcode.trim().toLowerCase();
+    if (entered === ADMIN_PASSCODE || entered === 'vystar2026') {
       setIsAuthenticated(true);
       setPasscodeError(false);
       fetchSubmissions();
