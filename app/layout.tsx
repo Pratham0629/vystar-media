@@ -17,10 +17,20 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://vystarmedia.in'),
-  title: 'Vystar Media — Best Digital Marketing & Branding Agency in Boisar, Palghar, Mumbai',
+  title: 'Vystar Media — Digital Marketing Company in Mumbai & India | Best SEO & Branding Agency',
   description:
-    'Vystar Media is a premier full-service marketing & branding agency. We specialize in Digital Marketing, SEO Services, PPC Ads, Social Media Marketing, Branding, Creative Design, AI Automation, and Business Strategy in Boisar, Palghar, Mumbai & globally.',
+    'Vystar Media is a premier Digital Marketing Company in Mumbai & India. We specialize in Digital Marketing Services in Mumbai, SEO Agency in Mumbai, SEO Services in Mumbai, Social Media Marketing Agency in Mumbai, Performance Marketing, Branding Agency in Mumbai, and AI Marketing.',
   keywords: [
+    'Digital Marketing Company in Mumbai',
+    'Digital Marketing Services in Mumbai',
+    'SEO Agency in Mumbai',
+    'SEO Services in Mumbai',
+    'Social Media Marketing Agency in Mumbai',
+    'Performance Marketing Agency in Mumbai',
+    'Branding Agency in Mumbai',
+    'AI Marketing Agency in Mumbai',
+    'Online Marketing Agency in Mumbai',
+    'Digital Marketing Company in India',
     'digital marketing agency',
     'digital marketing company',
     'best digital marketing agency',
@@ -52,15 +62,16 @@ export const metadata: Metadata = {
     'Vystar Media',
     'Vystar Media Boisar',
     'Vystar Media Palghar',
+    'Vystar Media Mumbai',
   ],
   authors: [{ name: 'Vystar Media' }],
   alternates: {
     canonical: 'https://vystarmedia.in',
   },
   openGraph: {
-    title: 'Vystar Media — Best Digital Marketing & Branding Agency',
+    title: 'Vystar Media — Digital Marketing Company in Mumbai & India',
     description:
-      'Full-service digital marketing, SEO, PPC, branding, and AI automation agency. Expanding brands beyond boundaries.',
+      'Full-service Digital Marketing Services in Mumbai, SEO Agency in Mumbai, Performance Marketing & Branding Agency in Mumbai.',
     type: 'website',
     url: 'https://vystarmedia.in',
     siteName: 'Vystar Media',
@@ -75,9 +86,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Vystar Media — Expanding Brands Beyond Boundaries',
+    title: 'Vystar Media — Digital Marketing Company in Mumbai & India',
     description:
-      'Full-service digital marketing, SEO, PPC, branding, and AI automation agency.',
+      'Digital Marketing Services in Mumbai, SEO Agency in Mumbai, Social Media & Branding Agency in Mumbai.',
     images: ['https://vystarmedia.in/images/vystar-logo.png'],
   },
   robots: { index: true, follow: true },
@@ -93,20 +104,22 @@ const jsonLd = {
   priceRange: '$$',
   address: {
     '@type': 'PostalAddress',
-    addressLocality: 'Boisar',
+    addressLocality: 'Mumbai',
     addressRegion: 'Maharashtra',
     addressCountry: 'IN',
   },
-  areaServed: ['Boisar', 'Palghar', 'Mumbai', 'Maharashtra', 'India', 'Global'],
+  areaServed: ['Mumbai', 'Boisar', 'Palghar', 'Maharashtra', 'India', 'Global'],
   knowsAbout: [
-    'Digital Marketing',
-    'Branding Services',
-    'SEO Optimization',
-    'PPC Google Ads',
-    'Social Media Marketing',
-    'AI Automation',
-    'Outdoor Advertising',
-    'Website Development',
+    'Digital Marketing Company in Mumbai',
+    'Digital Marketing Services in Mumbai',
+    'SEO Agency in Mumbai',
+    'SEO Services in Mumbai',
+    'Social Media Marketing Agency in Mumbai',
+    'Performance Marketing Agency in Mumbai',
+    'Branding Agency in Mumbai',
+    'AI Marketing Agency in Mumbai',
+    'Online Marketing Agency in Mumbai',
+    'Digital Marketing Company in India',
   ],
 };
 

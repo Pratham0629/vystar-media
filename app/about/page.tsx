@@ -9,22 +9,23 @@ import { Industries } from '@/components/sections/industries';
 import { CTASection } from '@/components/sections/cta';
 
 export const metadata: Metadata = {
-  title: 'Where Creativity, Technology & Strategy Converge — Vystar Media',
+  title: 'Top Digital Marketing Company & Branding Agency in Mumbai — Vystar Media',
   description:
-    'A growth-focused marketing company that combines creativity, technology, and strategy to expand brands beyond boundaries.',
+    'Vystar Media is a premier Online Marketing Agency in Mumbai & Digital Marketing Company in India. Where creativity, technology & strategy converge.',
   keywords: [
+    'Digital Marketing Company in Mumbai',
+    'Digital Marketing Services in Mumbai',
+    'SEO Agency in Mumbai',
+    'SEO Services in Mumbai',
+    'Social Media Marketing Agency in Mumbai',
+    'Performance Marketing Agency in Mumbai',
+    'Branding Agency in Mumbai',
+    'AI Marketing Agency in Mumbai',
+    'Online Marketing Agency in Mumbai',
+    'Digital Marketing Company in India',
     'Best Digital Marketing Company',
-    'Online Marketing Agency',
-    'Social Media Management',
-    'Business Growth Agency',
     'Digital Branding',
     'Local SEO Services',
-    'E-commerce Marketing',
-    'PPC Advertising',
-    'Marketing Strategy',
-    'Conversion Optimization',
-    'Creative Marketing Agency',
-    'ROI-Driven Marketing',
   ],
   alternates: {
     canonical: 'https://vystarmedia.in/about',

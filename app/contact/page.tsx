@@ -3,17 +3,22 @@ import { PageHeader } from '@/components/page-header';
 import { Contact } from '@/components/sections/contact';
 
 export const metadata: Metadata = {
-  title: 'Contact Digital Marketing Agency — Vystar Media',
+  title: 'Contact Digital Marketing Agency & SEO Company in Mumbai — Vystar Media',
   description:
-    'Let\'s build your brand together. Book a free consultation with Vystar Media strategy team.',
+    'Contact Vystar Media — leading Digital Marketing Company in Mumbai & SEO Agency in Mumbai. Book a free consultation today.',
   keywords: [
+    'Digital Marketing Company in Mumbai',
+    'Digital Marketing Services in Mumbai',
+    'SEO Agency in Mumbai',
+    'SEO Services in Mumbai',
+    'Social Media Marketing Agency in Mumbai',
+    'Performance Marketing Agency in Mumbai',
+    'Branding Agency in Mumbai',
+    'AI Marketing Agency in Mumbai',
+    'Online Marketing Agency in Mumbai',
+    'Digital Marketing Company in India',
     'Contact Digital Marketing Agency',
-    'Digital Marketing Agency Contact',
-    'Digital Marketing Consultation',
-    'Digital Marketing Services Inquiry',
     'Hire Digital Marketing Agency',
-    'Get Digital Marketing Consultation',
-    'Marketing Agency Contact',
   ],
   alternates: {
     canonical: 'https://vystarmedia.in/contact',
