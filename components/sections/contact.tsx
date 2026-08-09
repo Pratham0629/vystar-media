@@ -77,6 +77,26 @@ export function Contact() {
       console.warn('Local lead storage notice:', e);
     }
 
+    // Submit to Netlify Cloud Form Engine (global client lead storage)
+    try {
+      const formData = new URLSearchParams();
+      formData.append('form-name', 'contact_submissions');
+      formData.append('name', data.name);
+      formData.append('email', data.email);
+      formData.append('phone', data.phone);
+      formData.append('company', data.company || '');
+      formData.append('service', data.service);
+      formData.append('message', data.message);
+
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: formData.toString(),
+      });
+    } catch (e) {
+      console.warn('Netlify form submission notice:', e);
+    }
+
     try {
       const { error } = await supabase.from('contact_submissions').insert({
         name: data.name,
