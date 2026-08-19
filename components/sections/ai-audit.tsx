@@ -21,7 +21,7 @@ import { SectionHeading } from '@/components/section-heading';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
-import { supabase } from '@/lib/supabase';
+import { sendLeadToGoogleSheets } from '@/lib/google-sheets';
 
 type AuditResult = {
   overallScore: number;
@@ -96,21 +96,18 @@ export function AIAudit() {
         console.warn('Audit lead storage notice:', e);
       }
 
-      // Save to Supabase Database
+      // Send to Google Sheets Webhook (100% Free, Never Pauses)
       try {
-        await supabase.from('ai_audit_submissions').insert({
-          business_name: businessName,
-          website_url: websiteUrl || null,
-          industry,
-          goal,
-          overall_score: overall,
-          seo_score: seo,
-          brand_score: brand,
-          ad_roas_score: adRoas,
-          ai_readiness_score: aiReady,
+        await sendLeadToGoogleSheets({
+          name: businessName,
+          email: `${businessName.toLowerCase().replace(/\s+/g, '')}@lead.com`,
+          phone: websiteUrl || 'N/A',
+          company: businessName,
+          service: 'AI Marketing Audit',
+          message: `[AI MARKETING AUDIT REQUEST]\nWebsite/URL: ${websiteUrl || 'Not provided'}\nIndustry: ${industry}\nGoal: ${goal}\nOverall Score Generated: ${overall}%`,
         });
       } catch (err) {
-        console.error('Database sync error:', err);
+        console.warn('Google sheets post notice:', err);
       }
 
       setResult({

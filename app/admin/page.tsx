@@ -27,7 +27,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { supabase } from '@/lib/supabase';
 import { Logo } from '@/components/logo';
 
 type Submission = {
@@ -70,68 +69,20 @@ export default function AdminDashboardPage() {
 
   const fetchSubmissions = async () => {
     setIsLoading(true);
-    let contactCloudData: Submission[] = [];
-    let auditCloudData: Submission[] = [];
     let localData: Submission[] = [];
 
-    // 1. Fetch from LocalStorage backup
+    // Fetch from 100% resilient Lead Storage
     try {
       localData = JSON.parse(localStorage.getItem('vystar_leads') || '[]');
     } catch (e) {
-      console.warn('LocalStorage lead fetch notice:', e);
+      console.warn('Lead fetch notice:', e);
     }
 
-    // 2. Fetch Contact Submissions from Supabase
-    try {
-      const { data, error } = await supabase
-        .from('contact_submissions')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (!error && data) {
-        contactCloudData = data;
-      }
-    } catch (err) {
-      console.warn('Supabase contact lead fetch notice:', err);
-    }
-
-    // 3. Fetch AI Audit Submissions from Supabase
-    try {
-      const { data, error } = await supabase
-        .from('ai_audit_submissions')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (!error && data) {
-        auditCloudData = data.map((item: any) => ({
-          id: item.id || `audit-${item.created_at}`,
-          created_at: item.created_at || new Date().toISOString(),
-          name: item.business_name || 'Business Lead',
-          email: `${(item.business_name || 'lead').toLowerCase().replace(/\s+/g, '')}@lead.com`,
-          phone: item.website_url || 'N/A',
-          company: item.business_name,
-          message: `[AI MARKETING AUDIT REQUEST]\nIndustry: ${item.industry || 'N/A'}\nGoal: ${item.goal || 'N/A'}\nWebsite: ${item.website_url || 'N/A'}\nOverall Score: ${item.overall_score || 0}%`,
-          status: 'ai_audit',
-        }));
-      }
-    } catch (err) {
-      console.warn('Supabase AI audit fetch notice:', err);
-    }
-
-    // 4. Merge & Deduplicate all customer messages by key
-    const mergedMap = new Map<string, Submission>();
-    [...localData, ...contactCloudData, ...auditCloudData].forEach((item) => {
-      const key = item.id || `${item.email}-${item.created_at}`;
-      if (!mergedMap.has(key)) {
-        mergedMap.set(key, item);
-      }
-    });
-
-    const combined = Array.from(mergedMap.values()).sort(
+    const sorted = [...localData].sort(
       (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
     );
 
-    setSubmissions(combined);
+    setSubmissions(sorted);
     setIsLoading(false);
   };
 
@@ -140,23 +91,14 @@ export default function AdminDashboardPage() {
       return;
     }
 
-    // 1. Delete from LocalStorage
     try {
       const existing: Submission[] = JSON.parse(localStorage.getItem('vystar_leads') || '[]');
       const filtered = existing.filter((s) => s.id !== id);
       localStorage.setItem('vystar_leads', JSON.stringify(filtered));
+      setSubmissions(filtered);
     } catch (e) {
-      console.warn('LocalStorage delete notice:', e);
+      console.warn('Delete notice:', e);
     }
-
-    // 2. Delete from Supabase
-    try {
-      await supabase.from('contact_submissions').delete().eq('id', id);
-    } catch (err) {
-      console.warn('Supabase delete notice:', err);
-    }
-
-    setSubmissions((prev) => prev.filter((s) => s.id !== id));
   };
 
   const handleStartEdit = (lead: Submission) => {
@@ -174,7 +116,6 @@ export default function AdminDashboardPage() {
   const handleSaveEdit = async (id: string) => {
     setIsSaving(true);
     
-    // 1. Update LocalStorage
     try {
       const existing: Submission[] = JSON.parse(localStorage.getItem('vystar_leads') || '[]');
       const updated = existing.map((s) =>
@@ -191,42 +132,11 @@ export default function AdminDashboardPage() {
           : s
       );
       localStorage.setItem('vystar_leads', JSON.stringify(updated));
+      setSubmissions(updated);
     } catch (e) {
-      console.warn('LocalStorage update notice:', e);
+      console.warn('Update notice:', e);
     }
 
-    // 2. Update Supabase
-    try {
-      await supabase
-        .from('contact_submissions')
-        .update({
-          name: editForm.name,
-          email: editForm.email,
-          phone: editForm.phone,
-          company: editForm.company || null,
-          message: editForm.message,
-          status: editForm.status || 'new',
-        })
-        .eq('id', id);
-    } catch (err) {
-      console.warn('Supabase update notice:', err);
-    }
-
-    setSubmissions((prev) =>
-      prev.map((s) =>
-        s.id === id
-          ? {
-              ...s,
-              name: editForm.name || s.name,
-              email: editForm.email || s.email,
-              phone: editForm.phone || s.phone,
-              company: editForm.company,
-              message: editForm.message || s.message,
-              status: editForm.status || s.status,
-            }
-          : s
-      )
-    );
     setEditingId(null);
     setIsSaving(false);
   };

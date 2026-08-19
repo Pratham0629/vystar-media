@@ -23,7 +23,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { SectionHeading } from '@/components/section-heading';
-import { supabase } from '@/lib/supabase';
+import { sendLeadToGoogleSheets } from '@/lib/google-sheets';
 
 const schema = z.object({
   name: z.string().min(2, 'Please enter your name'),
@@ -97,19 +97,18 @@ export function Contact() {
       console.warn('Netlify form submission notice:', e);
     }
 
+    // Send to Google Sheets Webhook (100% Free, Never Pauses)
     try {
-      const { error } = await supabase.from('contact_submissions').insert({
+      await sendLeadToGoogleSheets({
         name: data.name,
         email: data.email,
         phone: data.phone,
-        company: data.company || null,
-        message: `${data.message}\n\nRequested service: ${data.service}`,
+        company: data.company || '',
+        service: data.service,
+        message: data.message,
       });
-      if (error) {
-        console.warn('Supabase table sync notice:', error.message);
-      }
     } catch (err) {
-      console.warn('Form submission processed:', err);
+      console.warn('Google sheets post processed:', err);
     }
 
     setStatus('success');
