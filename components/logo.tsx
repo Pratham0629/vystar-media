@@ -13,7 +13,7 @@ export function Logo({
   className,
   showText = true,
   size = 'lg',
-  isLightText = false,
+  isLightText = true,
 }: LogoProps) {
   const sizeMap = {
     sm: { height: 40, width: 200, maxH: 'h-10 md:h-12' },
