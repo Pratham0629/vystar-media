@@ -70,6 +70,17 @@ export default function AdminDashboardPage() {
 
   const fetchSubmissions = async () => {
     setIsLoading(true);
+    let cloudData: Submission[] = [];
+    let localData: Submission[] = [];
+
+    // 1. Fetch from LocalStorage backup
+    try {
+      localData = JSON.parse(localStorage.getItem('vystar_leads') || '[]');
+    } catch (e) {
+      console.warn('LocalStorage lead fetch notice:', e);
+    }
+
+    // 2. Fetch from Supabase Cloud DB
     try {
       const { data, error } = await supabase
         .from('contact_submissions')
@@ -77,13 +88,27 @@ export default function AdminDashboardPage() {
         .order('created_at', { ascending: false });
 
       if (!error && data) {
-        setSubmissions(data);
+        cloudData = data;
       }
     } catch (err) {
-      console.warn('Supabase lead fetch notice:', err);
-    } finally {
-      setIsLoading(false);
+      console.warn('Supabase lead fetch notice (resilient fallback active):', err);
     }
+
+    // 3. Merge & Deduplicate leads by email and timestamp or ID
+    const mergedMap = new Map<string, Submission>();
+    [...localData, ...cloudData].forEach((item) => {
+      const key = item.id || `${item.email}-${item.created_at}`;
+      if (!mergedMap.has(key)) {
+        mergedMap.set(key, item);
+      }
+    });
+
+    const combined = Array.from(mergedMap.values()).sort(
+      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    );
+
+    setSubmissions(combined);
+    setIsLoading(false);
   };
 
   const handleDelete = async (id: string, name: string) => {
@@ -91,20 +116,23 @@ export default function AdminDashboardPage() {
       return;
     }
 
+    // 1. Delete from LocalStorage
     try {
-      const { error } = await supabase
-        .from('contact_submissions')
-        .delete()
-        .eq('id', id);
-
-      if (error) {
-        alert('Error deleting submission: ' + error.message);
-      } else {
-        setSubmissions((prev) => prev.filter((s) => s.id !== id));
-      }
-    } catch (err) {
-      console.warn('Delete error:', err);
+      const existing: Submission[] = JSON.parse(localStorage.getItem('vystar_leads') || '[]');
+      const filtered = existing.filter((s) => s.id !== id);
+      localStorage.setItem('vystar_leads', JSON.stringify(filtered));
+    } catch (e) {
+      console.warn('LocalStorage delete notice:', e);
     }
+
+    // 2. Delete from Supabase
+    try {
+      await supabase.from('contact_submissions').delete().eq('id', id);
+    } catch (err) {
+      console.warn('Supabase delete notice:', err);
+    }
+
+    setSubmissions((prev) => prev.filter((s) => s.id !== id));
   };
 
   const handleStartEdit = (lead: Submission) => {
@@ -121,8 +149,31 @@ export default function AdminDashboardPage() {
 
   const handleSaveEdit = async (id: string) => {
     setIsSaving(true);
+    
+    // 1. Update LocalStorage
     try {
-      const { error } = await supabase
+      const existing: Submission[] = JSON.parse(localStorage.getItem('vystar_leads') || '[]');
+      const updated = existing.map((s) =>
+        s.id === id
+          ? {
+              ...s,
+              name: editForm.name || s.name,
+              email: editForm.email || s.email,
+              phone: editForm.phone || s.phone,
+              company: editForm.company || '',
+              message: editForm.message || s.message,
+              status: editForm.status || 'new',
+            }
+          : s
+      );
+      localStorage.setItem('vystar_leads', JSON.stringify(updated));
+    } catch (e) {
+      console.warn('LocalStorage update notice:', e);
+    }
+
+    // 2. Update Supabase
+    try {
+      await supabase
         .from('contact_submissions')
         .update({
           name: editForm.name,
@@ -133,32 +184,27 @@ export default function AdminDashboardPage() {
           status: editForm.status || 'new',
         })
         .eq('id', id);
-
-      if (error) {
-        alert('Error updating submission: ' + error.message);
-      } else {
-        setSubmissions((prev) =>
-          prev.map((s) =>
-            s.id === id
-              ? {
-                  ...s,
-                  name: editForm.name || s.name,
-                  email: editForm.email || s.email,
-                  phone: editForm.phone || s.phone,
-                  company: editForm.company,
-                  message: editForm.message || s.message,
-                  status: editForm.status || s.status,
-                }
-              : s
-          )
-        );
-        setEditingId(null);
-      }
     } catch (err) {
-      console.warn('Save edit error:', err);
-    } finally {
-      setIsSaving(false);
+      console.warn('Supabase update notice:', err);
     }
+
+    setSubmissions((prev) =>
+      prev.map((s) =>
+        s.id === id
+          ? {
+              ...s,
+              name: editForm.name || s.name,
+              email: editForm.email || s.email,
+              phone: editForm.phone || s.phone,
+              company: editForm.company,
+              message: editForm.message || s.message,
+              status: editForm.status || s.status,
+            }
+          : s
+      )
+    );
+    setEditingId(null);
+    setIsSaving(false);
   };
 
   const filteredSubmissions = submissions.filter((s) => {
