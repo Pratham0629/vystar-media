@@ -29,7 +29,7 @@ export function Hero() {
               alt="Vystar Media Emblem"
               width={64}
               height={64}
-              className="h-8 w-8 object-contain -translate-y-0.5"
+              className="h-7.5 w-7.5 object-contain"
               priority
             />
           </div>
