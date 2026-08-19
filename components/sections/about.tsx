@@ -31,13 +31,13 @@ export function About() {
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <div>
             <div className="mb-6 flex items-center gap-4">
-              <div className="relative h-16 w-16 overflow-hidden rounded-full ring-2 ring-accent/30 shadow-lg shadow-accent/10 bg-accent/5">
+              <div className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-full ring-2 ring-accent/30 shadow-lg shadow-accent/10 bg-accent/10">
                 <Image
                   src="/images/vystar-emblem.png"
                   alt="Vystar Media Official Emblem"
-                  width={128}
-                  height={128}
-                  className="h-full w-full object-contain p-2"
+                  width={64}
+                  height={64}
+                  className="h-8 w-8 object-contain"
                 />
               </div>
               <div>

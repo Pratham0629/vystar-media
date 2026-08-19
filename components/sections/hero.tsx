@@ -23,13 +23,13 @@ export function Hero() {
           transition={{ duration: 0.6 }}
           className="mb-6 inline-flex items-center gap-3 rounded-full border border-accent/30 bg-accent/10 p-1.5 pr-5 text-xs font-medium text-accent backdrop-blur transition-all hover:border-accent/50 hover:bg-accent/15"
         >
-          <div className="relative h-8 w-8 overflow-hidden rounded-full ring-2 ring-accent/40 shadow-md">
+          <div className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/20 ring-2 ring-accent/40 shadow-md">
             <Image
               src="/images/vystar-emblem-light.png"
               alt="Vystar Media Emblem"
-              width={64}
-              height={64}
-              className="h-full w-full object-contain p-1"
+              width={32}
+              height={32}
+              className="h-4 w-4 object-contain"
               priority
             />
           </div>
