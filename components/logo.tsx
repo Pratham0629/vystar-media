@@ -12,14 +12,14 @@ interface LogoProps {
 export function Logo({
   className,
   showText = true,
-  size = 'md',
+  size = 'lg',
   isLightText = false,
 }: LogoProps) {
   const sizeMap = {
-    sm: { height: 26, width: 140 },
-    md: { height: 34, width: 180 },
-    lg: { height: 42, width: 220 },
-    xl: { height: 54, width: 280 },
+    sm: { height: 36, width: 180, maxH: 'h-9 md:h-10' },
+    md: { height: 48, width: 240, maxH: 'h-11 md:h-14' },
+    lg: { height: 60, width: 300, maxH: 'h-13 md:h-16' },
+    xl: { height: 76, width: 380, maxH: 'h-16 md:h-20' },
   };
 
   const current = sizeMap[size];
@@ -31,7 +31,7 @@ export function Logo({
         alt="Vystar Media Logo"
         width={current.width}
         height={current.height}
-        className="h-auto w-auto max-h-12 object-contain transition-transform duration-300 group-hover:scale-105"
+        className={cn('w-auto object-contain transition-transform duration-300 group-hover:scale-105', current.maxH)}
         priority
       />
     </div>
