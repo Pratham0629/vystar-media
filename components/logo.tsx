@@ -16,10 +16,10 @@ export function Logo({
   isLightText = false,
 }: LogoProps) {
   const sizeMap = {
-    sm: { height: 36, width: 180, maxH: 'h-9 md:h-10' },
-    md: { height: 48, width: 240, maxH: 'h-11 md:h-14' },
-    lg: { height: 60, width: 300, maxH: 'h-13 md:h-16' },
-    xl: { height: 76, width: 380, maxH: 'h-16 md:h-20' },
+    sm: { height: 40, width: 200, maxH: 'h-10 md:h-12' },
+    md: { height: 56, width: 280, maxH: 'h-14 md:h-16' },
+    lg: { height: 72, width: 360, maxH: 'h-16 md:h-20 lg:h-24' },
+    xl: { height: 96, width: 480, maxH: 'h-20 md:h-28 lg:h-32' },
   };
 
   const current = sizeMap[size];

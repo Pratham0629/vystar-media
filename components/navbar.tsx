@@ -45,9 +45,9 @@ export function Navbar() {
             : 'bg-transparent'
         )}
       >
-        <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 md:h-20">
+        <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 md:h-24">
           <Link href="/" className="group flex items-center gap-2.5">
-            <Logo isLightText={isHome && !scrolled} />
+            <Logo size="lg" isLightText={isHome && !scrolled} />
           </Link>
 
           <div className="hidden items-center gap-1 lg:flex">
