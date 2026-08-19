@@ -70,7 +70,8 @@ export default function AdminDashboardPage() {
 
   const fetchSubmissions = async () => {
     setIsLoading(true);
-    let cloudData: Submission[] = [];
+    let contactCloudData: Submission[] = [];
+    let auditCloudData: Submission[] = [];
     let localData: Submission[] = [];
 
     // 1. Fetch from LocalStorage backup
@@ -80,7 +81,7 @@ export default function AdminDashboardPage() {
       console.warn('LocalStorage lead fetch notice:', e);
     }
 
-    // 2. Fetch from Supabase Cloud DB
+    // 2. Fetch Contact Submissions from Supabase
     try {
       const { data, error } = await supabase
         .from('contact_submissions')
@@ -88,15 +89,38 @@ export default function AdminDashboardPage() {
         .order('created_at', { ascending: false });
 
       if (!error && data) {
-        cloudData = data;
+        contactCloudData = data;
       }
     } catch (err) {
-      console.warn('Supabase lead fetch notice (resilient fallback active):', err);
+      console.warn('Supabase contact lead fetch notice:', err);
     }
 
-    // 3. Merge & Deduplicate leads by email and timestamp or ID
+    // 3. Fetch AI Audit Submissions from Supabase
+    try {
+      const { data, error } = await supabase
+        .from('ai_audit_submissions')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (!error && data) {
+        auditCloudData = data.map((item: any) => ({
+          id: item.id || `audit-${item.created_at}`,
+          created_at: item.created_at || new Date().toISOString(),
+          name: item.business_name || 'Business Lead',
+          email: `${(item.business_name || 'lead').toLowerCase().replace(/\s+/g, '')}@lead.com`,
+          phone: item.website_url || 'N/A',
+          company: item.business_name,
+          message: `[AI MARKETING AUDIT REQUEST]\nIndustry: ${item.industry || 'N/A'}\nGoal: ${item.goal || 'N/A'}\nWebsite: ${item.website_url || 'N/A'}\nOverall Score: ${item.overall_score || 0}%`,
+          status: 'ai_audit',
+        }));
+      }
+    } catch (err) {
+      console.warn('Supabase AI audit fetch notice:', err);
+    }
+
+    // 4. Merge & Deduplicate all customer messages by key
     const mergedMap = new Map<string, Submission>();
-    [...localData, ...cloudData].forEach((item) => {
+    [...localData, ...contactCloudData, ...auditCloudData].forEach((item) => {
       const key = item.id || `${item.email}-${item.created_at}`;
       if (!mergedMap.has(key)) {
         mergedMap.set(key, item);

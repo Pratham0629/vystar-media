@@ -78,6 +78,24 @@ export function AIAudit() {
       const adRoas = 58 + ((bHash * 5) % 32);
       const aiReady = 40 + ((bHash * 7) % 45);
 
+      // Save lead to local storage for 100% guaranteed admin dashboard capture
+      try {
+        const auditLead = {
+          id: 'audit-' + Date.now(),
+          created_at: new Date().toISOString(),
+          name: businessName,
+          email: `${businessName.toLowerCase().replace(/\s+/g, '')}@lead.com`,
+          phone: websiteUrl || 'N/A',
+          company: businessName,
+          message: `[AI MARKETING AUDIT REQUEST]\nWebsite/URL: ${websiteUrl || 'Not provided'}\nIndustry: ${industry}\nGoal: ${goal}\nOverall Score Generated: ${overall}%`,
+          status: 'ai_audit',
+        };
+        const existing = JSON.parse(localStorage.getItem('vystar_leads') || '[]');
+        localStorage.setItem('vystar_leads', JSON.stringify([auditLead, ...existing]));
+      } catch (e) {
+        console.warn('Audit lead storage notice:', e);
+      }
+
       // Save to Supabase Database
       try {
         await supabase.from('ai_audit_submissions').insert({
