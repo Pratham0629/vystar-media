@@ -25,11 +25,11 @@ export function Hero() {
         >
           <div className="relative h-8 w-8 overflow-hidden rounded-full ring-2 ring-accent/40 shadow-md">
             <Image
-              src="/images/vystar-logo.png"
-              alt="Vystar Media Logo"
+              src="/images/vystar-emblem-light.png"
+              alt="Vystar Media Emblem"
               width={64}
               height={64}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-contain p-1"
               priority
             />
           </div>
