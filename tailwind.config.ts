@@ -92,7 +92,7 @@ const config: Config = {
         },
         'float': {
           '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-12px)' },
+          '50%': { transform: 'translateY(0)' },
         },
         'marquee': {
           from: { transform: 'translateX(0)' },

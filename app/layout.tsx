@@ -1,12 +1,12 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import { Inter, Playfair_Display } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Navbar } from '@/components/navbar';
 import { Footer } from '@/components/sections/footer';
 import { ScrollProgress } from '@/components/scroll-progress';
 import { BackToTop } from '@/components/back-to-top';
 import { AIChatbot } from '@/components/ai-chatbot';
-import { Inter, Playfair_Display, Prata, Hanken_Grotesk, Poppins } from 'next/font/google';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const playfair = Playfair_Display({
@@ -14,9 +14,6 @@ const playfair = Playfair_Display({
   variable: '--font-playfair',
   display: 'swap',
 });
-const prata = Prata({ weight: '400', subsets: ['latin'], variable: '--font-serif', display: 'swap' });
-const hanken = Hanken_Grotesk({ subsets: ['latin'], variable: '--font-body', display: 'swap' });
-const poppins = Poppins({ weight: ['500', '600'], subsets: ['latin'], variable: '--font-logo', display: 'swap' });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://vystarmedia.in'),
@@ -139,7 +136,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${inter.variable} ${playfair.variable} ${prata.variable} ${hanken.variable} ${poppins.variable} font-sans`}>
+      <body className={`${inter.variable} ${playfair.variable} font-sans`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
