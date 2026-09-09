@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { PageHeader } from '@/components/page-header';
 import { Process } from '@/components/sections/process';
 import { Values } from '@/components/sections/values';
-import { Stats } from '@/components/sections/stats';
 import { CTASection } from '@/components/sections/cta';
 
 export const metadata: Metadata = {
@@ -35,7 +34,6 @@ export default function ProcessPage() {
       />
       <Process />
       <Values />
-      <Stats />
       <CTASection />
     </>
   );
