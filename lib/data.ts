@@ -223,13 +223,13 @@ export const values = [
 ];
 
 export const team = [
-  { name: 'Mayank Rana', role: 'Digital Marketing Consultant', avatar: '/images/team/WhatsApp_Image_2026-07-22_at_9.54.58_AM.jpeg' },
-  { name: 'Dhurba Sikdar', role: 'Creative Director', avatar: '/images/team/WhatsApp_Image_2026-07-22_at_9.58.45_AM.jpeg' },
-  { name: 'Pratham Rana', role: 'Founder & Chief Strategist', avatar: '/images/team/WhatsApp_Image_2026-07-22_at_10.41.32_AM.jpeg' },
+  { name: 'Strategy & Growth Desk', role: 'Full-Funnel Campaign Strategy', avatar: '/images/vystar-emblem.png' },
+  { name: 'Creative & Brand Studio', role: 'Visual Identity & Motion Design', avatar: '/images/vystar-emblem.png' },
+  { name: 'Digital & AI Marketing Desk', role: 'SEO, PPC & Automated Workflows', avatar: '/images/vystar-emblem.png' },
 ];
 
 export const milestones = [
-  { year: '2026', title: 'Founded in Boisar', desc: 'Vystar Media begins with a 3-person team and a single client.' },
+  { year: '2026', title: 'Founded in Boisar', desc: 'Vystar Media begins with a senior strategy team and ambitious clients.' },
   { year: '2027', title: 'Expanding our reach', desc: 'Building towards our goal of serving enterprises, SMEs and government organizations across 15+ industries with 10M+ marketing reach.' },
 ];
 
@@ -237,23 +237,23 @@ export const testimonials = [
   {
     quote:
       'Our mission at Vystar Media is to blend data-driven marketing with world-class design, ensuring every client achieves measurable and transformational growth.',
-    name: 'Pratham Rana',
-    role: 'Founder & Chief Strategist',
-    avatar: '/images/team/WhatsApp_Image_2026-07-22_at_10.41.32_AM.jpeg',
+    name: 'Growth & Strategy Team',
+    role: 'Full-Service Marketing Desk',
+    avatar: '/images/vystar-emblem.png',
   },
   {
     quote:
       'By combining performance PPC, SEO, and AI automation, we turn traffic into predictable revenue streams for scaling enterprises.',
-    name: 'Mayank Rana',
-    role: 'Digital Marketing Consultant',
-    avatar: '/images/team/WhatsApp_Image_2026-07-22_at_9.54.58_AM.jpeg',
+    name: 'Performance Marketing Desk',
+    role: 'Digital Campaign Management',
+    avatar: '/images/vystar-emblem.png',
   },
   {
     quote:
       'Crafting distinct visual identities and high-converting creative assets is what makes our partner brands stand out in crowded markets.',
-    name: 'Dhurba Sikdar',
-    role: 'Creative Director',
-    avatar: '/images/team/WhatsApp_Image_2026-07-22_at_9.58.45_AM.jpeg',
+    name: 'Creative Studio Team',
+    role: 'Brand & Visual Identity',
+    avatar: '/images/vystar-emblem.png',
   },
 ];
 

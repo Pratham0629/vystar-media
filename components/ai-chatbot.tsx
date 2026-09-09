@@ -94,14 +94,14 @@ export function AIChatbot() {
     } else if (q.includes('service') || q.includes('pricing') || q.includes('explore services')) {
       replyText =
         'Vystar Media provides 5 core pillars: Digital Marketing (SEO/PPC/Social), Traditional Advertising, Brand Identity, Creative Studio (Video/Motion/Design), and AI Business Automation.';
-      replyOptions = ['Tell me about AI Automation', 'See Pricing Plans', 'Talk to Pratham & Team'];
+      replyOptions = ['Tell me about AI Automation', 'See Pricing Plans', 'Talk to Strategy Team'];
     } else if (q.includes('ai') || q.includes('revenue') || q.includes('grow')) {
       replyText =
         'Our AI solutions automate lead response from hours to seconds, create high-converting copy, and optimize ad targeting in real-time. Clients see up to 3.5x higher conversions!';
       replyOptions = ['Get AI Marketing Audit', 'Schedule Strategy Call'];
     } else if (q.includes('book') || q.includes('consultation') || q.includes('talk') || q.includes('call')) {
       replyText =
-        "Awesome! Our Chief Strategist Pratham Rana and Digital Marketing Lead Mayank Rana are ready to map out your growth strategy. Leave your email or phone below so we can reach out directly!";
+        "Awesome! Our senior marketing strategists and growth consultants are ready to map out your growth strategy. Leave your email or phone below so we can reach out directly!";
       setMessages((prev) => [
         ...prev,
         {
@@ -151,7 +151,7 @@ export function AIChatbot() {
     const botMsg: Message = {
       id: Date.now().toString(),
       sender: 'bot',
-      text: `🎉 Thank you! We have received your contact detail (${contactInfo}). Pratham Rana or Mayank Rana will get back to you within 2 hours!`,
+      text: `🎉 Thank you! We have received your contact detail (${contactInfo}). Our senior growth team will get back to you within 2 hours!`,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
     setMessages((prev) => [...prev, botMsg]);

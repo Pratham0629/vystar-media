@@ -44,7 +44,6 @@ export default function AboutPage() {
       <About />
       <Values />
       <Milestones />
-      <Team />
       <Stats />
       <Industries />
       <CTASection />
