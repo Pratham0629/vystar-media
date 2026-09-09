@@ -1,10 +1,7 @@
 import type { Metadata } from 'next';
 import { PageHeader } from '@/components/page-header';
 import { Services } from '@/components/sections/services';
-import { SolutionsPreview } from '@/components/sections/solutions-preview';
 import { ServicesGrid } from '@/components/sections/services-grid';
-import { Process } from '@/components/sections/process';
-import { Industries } from '@/components/sections/industries';
 import { CTASection } from '@/components/sections/cta';
 
 export const metadata: Metadata = {
@@ -51,10 +48,7 @@ export default function ServicesPage() {
         subtitle="From search to screen, from strategy to scale — every capability your brand needs to grow."
       />
       <Services />
-      <SolutionsPreview />
       <ServicesGrid />
-      <Process />
-      <Industries />
       <CTASection />
     </>
   );
