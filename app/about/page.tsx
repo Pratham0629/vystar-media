@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { PageHeader } from '@/components/page-header';
-import { Values } from '@/components/sections/values';
+import { FoundersVision } from '@/components/sections/founders-vision';
 import { Milestones } from '@/components/sections/milestones';
 import { Industries } from '@/components/sections/industries';
 import { CTASection } from '@/components/sections/cta';
@@ -38,7 +38,7 @@ export default function AboutPage() {
         title="Where creativity, technology & strategy converge"
         subtitle="A growth-focused marketing company that combines creativity, technology, and strategy to expand brands beyond boundaries."
       />
-      <Values />
+      <FoundersVision />
       <Milestones />
       <Industries />
       <CTASection />
