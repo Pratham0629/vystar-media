@@ -18,10 +18,9 @@ type RevealProps = {
 export function Reveal({
   children,
   delay = 0,
-  y = 32,
+  y = 24,
   className,
   once = true,
-  blur = true,
   scale = 1,
 }: RevealProps) {
   const reduce = useReducedMotion();
@@ -32,11 +31,11 @@ export function Reveal({
         opacity: 0,
         y: reduce ? 0 : y,
         scale: reduce ? 1 : scale,
-        filter: reduce || !blur ? 'blur(0px)' : 'blur(8px)',
       }}
-      whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-      viewport={{ once, margin: '-80px' }}
-      transition={{ duration: 0.8, delay, ease }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once, margin: '-60px' }}
+      transition={{ duration: 0.6, delay, ease }}
+      style={{ willChange: 'opacity, transform' }}
     >
       {children}
     </motion.div>
@@ -57,10 +56,10 @@ export function Stagger({
       className={className}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, margin: '-80px' }}
+      viewport={{ once: true, margin: '-60px' }}
       variants={{
         hidden: {},
-        show: { transition: { staggerChildren: 0.1, delayChildren: delay } },
+        show: { transition: { staggerChildren: 0.08, delayChildren: delay } },
       }}
     >
       {children}
@@ -71,8 +70,8 @@ export function Stagger({
 export function StaggerItem({
   children,
   className,
-  y = 32,
-  scale = 0.95,
+  y = 20,
+  scale = 0.98,
 }: {
   children: React.ReactNode;
   className?: string;
@@ -83,19 +82,18 @@ export function StaggerItem({
   return (
     <motion.div
       className={className}
+      style={{ willChange: 'opacity, transform' }}
       variants={{
         hidden: {
           opacity: 0,
           y: reduce ? 0 : y,
           scale: reduce ? 1 : scale,
-          filter: reduce ? 'blur(0px)' : 'blur(6px)',
         },
         show: {
           opacity: 1,
           y: 0,
           scale: 1,
-          filter: 'blur(0px)',
-          transition: { duration: 0.8, ease },
+          transition: { duration: 0.5, ease },
         },
       }}
     >
