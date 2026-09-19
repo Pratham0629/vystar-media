@@ -47,7 +47,7 @@ const cards = [
 
 export function HomeOverview() {
   return (
-    <section className="py-24 md:py-32">
+    <section className="bg-background py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Explore Vystar Media"
@@ -59,10 +59,10 @@ export function HomeOverview() {
           {cards.map((c, i) => (
             <motion.div
               key={c.href}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.5, delay: i * 0.07 }}
+              initial={{ opacity: 0, y: 32, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.7, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
             >
               <Link
                 href={c.href}
@@ -72,11 +72,11 @@ export function HomeOverview() {
                   <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent transition-colors group-hover:bg-accent group-hover:text-accent-foreground">
                     <c.icon className="h-5 w-5" />
                   </span>
-                  <ArrowUpRight className="h-5 w-5 text-muted-foreground/40 transition-all group-hover:translate-x-0.5 group-hover:text-accent" />
+                  <ArrowUpRight className="h-5 w-5 text-body-muted transition-all group-hover:translate-x-0.5 group-hover:text-highlight" />
                 </div>
                 <h3 className="mt-5 font-display text-xl font-semibold">{c.title}</h3>
-                <p className="mt-2 flex-1 text-sm text-muted-foreground">{c.desc}</p>
-                <span className="mt-4 text-sm font-medium text-accent">
+                <p className="mt-2 flex-1 text-sm text-body-muted">{c.desc}</p>
+                <span className="mt-4 text-sm font-medium text-highlight">
                   Learn more →
                 </span>
               </Link>

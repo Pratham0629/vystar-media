@@ -34,7 +34,13 @@ export function Testimonials() {
       <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Client Stories"
-          title={<span className="text-navy-foreground">Trusted by leaders, loved by teams</span>}
+          light
+          title={
+            <>
+              Trusted by leaders,{' '}
+              <span className="text-highlight">loved by teams</span>
+            </>
+          }
         />
 
         <div className="relative mt-12 min-h-[260px]">
@@ -45,11 +51,11 @@ export function Testimonials() {
               initial={{ opacity: 0, x: dir > 0 ? 40 : -40 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: dir > 0 ? -40 : 40 }}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               className="text-center"
             >
               <Quote className="mx-auto h-10 w-10 text-accent/60" />
-              <p className="mx-auto mt-6 max-w-3xl font-display text-xl font-medium leading-relaxed text-navy-foreground/90 sm:text-2xl md:text-[1.6rem]">
+              <p className="mx-auto mt-6 max-w-3xl font-display text-xl font-medium leading-relaxed text-navy-foreground/95 sm:text-2xl md:text-[1.65rem] md:leading-snug">
                 &ldquo;{t.quote}&rdquo;
               </p>
               <div className="mt-8 flex items-center justify-center gap-3">
@@ -61,7 +67,7 @@ export function Testimonials() {
                 />
                 <div className="text-left">
                   <p className="font-semibold text-navy-foreground">{t.name}</p>
-                  <p className="text-sm text-navy-foreground/60">{t.role}</p>
+                  <p className="text-sm text-body-muted">{t.role}</p>
                 </div>
               </div>
             </motion.div>

@@ -6,7 +6,7 @@ import { milestones } from '@/lib/data';
 
 export function Milestones() {
   return (
-    <section className="py-24 md:py-32">
+    <section className="bg-section-alt py-24 md:py-32">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Our Journey"
@@ -17,18 +17,18 @@ export function Milestones() {
           {milestones.map((m, i) => (
             <motion.div
               key={m.year}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              initial={{ opacity: 0, x: -20, filter: 'blur(6px)' }}
+              whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.7, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="relative mb-10 last:mb-0"
             >
               <span className="absolute -left-8 top-1 flex h-6 w-6 items-center justify-center rounded-full border-2 border-accent bg-background">
                 <span className="h-2 w-2 rounded-full bg-accent" />
               </span>
-              <span className="font-display text-sm font-bold text-accent">{m.year}</span>
+              <span className="font-display text-sm font-bold text-highlight">{m.year}</span>
               <h3 className="mt-1 font-display text-xl font-semibold">{m.title}</h3>
-              <p className="mt-1 text-sm text-muted-foreground">{m.desc}</p>
+              <p className="mt-1 text-sm text-body-muted">{m.desc}</p>
             </motion.div>
           ))}
         </div>

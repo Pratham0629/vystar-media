@@ -55,11 +55,23 @@ const config: Config = {
         ring: 'hsl(var(--ring))',
         navy: {
           DEFAULT: 'hsl(var(--navy))',
-          foreground: 'hsl(210 40% 98%)',
+          foreground: 'hsl(var(--navy-foreground))',
         },
+        'section-alt': 'hsl(var(--section-alt))',
+        'section-dark': 'hsl(var(--section-dark))',
         gold: {
           DEFAULT: 'hsl(var(--gold))',
           foreground: 'hsl(222 47% 11%)',
+          dark: 'hsl(var(--gold-dark))',
+          light: 'hsl(var(--gold-light))',
+        },
+        green: {
+          DEFAULT: 'hsl(var(--green-accent))',
+          light: 'hsl(var(--green-light))',
+        },
+        purple: {
+          DEFAULT: 'hsl(var(--purple-accent))',
+          light: 'hsl(var(--purple-light))',
         },
         chart: {
           '1': 'hsl(var(--chart-1))',
@@ -71,7 +83,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-        display: ['var(--font-playfair)', 'Georgia', 'serif'],
+        display: ['var(--font-space-grotesk)', 'system-ui', 'sans-serif'],
       },
       keyframes: {
         'accordion-down': {
@@ -83,16 +95,25 @@ const config: Config = {
           to: { height: '0' },
         },
         'fade-up': {
-          from: { opacity: '0', transform: 'translateY(24px)' },
-          to: { opacity: '1', transform: 'translateY(0)' },
+          from: { opacity: '0', transform: 'translateY(32px)', filter: 'blur(8px)' },
+          to: { opacity: '1', transform: 'translateY(0)', filter: 'blur(0)' },
+        },
+        'fade-in': {
+          from: { opacity: '0' },
+          to: { opacity: '1' },
         },
         'shimmer': {
           '0%': { backgroundPosition: '-200% 0' },
           '100%': { backgroundPosition: '200% 0' },
         },
         'float': {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(0)' },
+          '0%, 100%': { transform: 'translateY(0) translateX(0)' },
+          '33%': { transform: 'translateY(-12px) translateX(6px)' },
+          '66%': { transform: 'translateY(8px) translateX(-4px)' },
+        },
+        'blur-drift': {
+          '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
+          '50%': { transform: 'translate(30px, -20px) scale(1.05)' },
         },
         'marquee': {
           from: { transform: 'translateX(0)' },
@@ -106,10 +127,12 @@ const config: Config = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'fade-up': 'fade-up 0.6s ease-out forwards',
+        'fade-up': 'fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards',
+        'fade-in': 'fade-in 0.6s ease-out forwards',
         'shimmer': 'shimmer 2.5s linear infinite',
-        'float': 'float 6s ease-in-out infinite',
-        'marquee': 'marquee 30s linear infinite',
+        'float': 'float 8s ease-in-out infinite',
+        'blur-drift': 'blur-drift 12s ease-in-out infinite',
+        'marquee': 'marquee 35s linear infinite',
         'pulse-ring': 'pulse-ring 2s cubic-bezier(0.4,0,0.6,1) infinite',
       },
     },

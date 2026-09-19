@@ -13,8 +13,7 @@ export function Services() {
   const current = services.find((s) => s.id === active)!;
 
   return (
-    <section className="relative overflow-hidden py-24 md:py-32">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-secondary/30 to-background" />
+    <section className="relative overflow-hidden bg-section-alt py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="What We Do"
@@ -31,10 +30,10 @@ export function Services() {
                 <motion.button
                   key={s.id}
                   onClick={() => setActive(s.id)}
-                  initial={{ opacity: 0, x: -16 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.06 }}
+                  initial={{ opacity: 0, x: -16, filter: 'blur(6px)' }}
+                  whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                  viewport={{ once: true, margin: '-80px' }}
+                  transition={{ duration: 0.7, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
                   className={cn(
                     'group flex items-center justify-between rounded-2xl border p-5 text-left transition-all',
                     isActive
@@ -55,7 +54,7 @@ export function Services() {
                     </span>
                     <div>
                       <h3 className="font-display text-lg font-semibold">{s.title}</h3>
-                      <p className="mt-0.5 hidden text-sm text-muted-foreground sm:block">
+                      <p className="mt-0.5 hidden text-sm text-body-muted sm:block">
                         {s.blurb}
                       </p>
                     </div>
@@ -63,7 +62,7 @@ export function Services() {
                   <ArrowUpRight
                     className={cn(
                       'h-5 w-5 shrink-0 transition-transform',
-                      isActive ? 'text-accent' : 'text-muted-foreground/40 group-hover:translate-x-0.5'
+                      isActive ? 'text-highlight' : 'text-body-muted group-hover:translate-x-0.5 group-hover:text-highlight'
                     )}
                   />
                 </motion.button>
@@ -76,10 +75,10 @@ export function Services() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={current.id}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.4 }}
+                initial={{ opacity: 0, y: 24, filter: 'blur(8px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, y: -16, filter: 'blur(4px)' }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               >
                 <div className="flex items-center gap-3">
                   <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent text-accent-foreground">
@@ -89,7 +88,7 @@ export function Services() {
                     {current.title}
                   </h3>
                 </div>
-                <p className="mt-4 max-w-xl text-muted-foreground">{current.blurb}</p>
+                <p className="mt-4 max-w-xl text-body-muted">{current.blurb}</p>
 
                 <div className="mt-8 grid gap-x-6 gap-y-3 sm:grid-cols-2">
                   {current.items.map((item, i) => (

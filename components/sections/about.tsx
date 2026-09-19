@@ -26,7 +26,7 @@ const pillars: { icon: LucideIcon; title: string; desc: string }[] = [
 
 export function About() {
   return (
-    <section className="relative py-24 md:py-32">
+    <section className="relative bg-section-alt py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <div>
@@ -41,7 +41,7 @@ export function About() {
                 />
               </div>
               <div>
-                <span className="font-display text-sm font-bold uppercase tracking-wider text-accent">
+                <span className="font-display text-sm font-bold uppercase tracking-wider text-highlight">
                   Official Brand
                 </span>
                 <h4 className="font-display text-xl font-bold">Vystar Media</h4>
@@ -54,7 +54,7 @@ export function About() {
               align="left"
             />
             <Reveal delay={0.1}>
-              <p className="mt-6 text-base text-muted-foreground sm:text-lg">
+              <p className="mt-6 text-base text-body-muted sm:text-lg">
                 Vystar Media is a growth-focused marketing company that combines
                 creativity, technology, and strategy to expand brands beyond
                 boundaries. We partner with startups, SMEs, enterprises and
@@ -80,17 +80,17 @@ export function About() {
             {pillars.map((p, i) => (
               <motion.div
                 key={p.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
+                initial={{ opacity: 0, y: 32, filter: 'blur(8px)' }}
+                whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{ duration: 0.7, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
                 className="group rounded-2xl border border-border bg-card p-5 transition-all hover:-translate-y-1 hover:border-accent/40 hover:shadow-xl hover:shadow-accent/5"
               >
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent/10 text-accent transition-colors group-hover:bg-accent group-hover:text-accent-foreground">
                   <p.icon className="h-5 w-5" />
                 </div>
                 <h3 className="mt-4 font-display text-lg font-semibold">{p.title}</h3>
-                <p className="mt-1.5 text-sm text-muted-foreground">{p.desc}</p>
+                <p className="mt-1.5 text-sm text-body-muted">{p.desc}</p>
               </motion.div>
             ))}
           </div>

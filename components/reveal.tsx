@@ -3,29 +3,40 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import * as React from 'react';
 
+const ease = [0.22, 1, 0.36, 1] as const;
+
 type RevealProps = {
   children: React.ReactNode;
   delay?: number;
   y?: number;
   className?: string;
   once?: boolean;
+  blur?: boolean;
+  scale?: number;
 };
 
 export function Reveal({
   children,
   delay = 0,
-  y = 24,
+  y = 32,
   className,
   once = true,
+  blur = true,
+  scale = 1,
 }: RevealProps) {
   const reduce = useReducedMotion();
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: reduce ? 0 : y }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{
+        opacity: 0,
+        y: reduce ? 0 : y,
+        scale: reduce ? 1 : scale,
+        filter: reduce || !blur ? 'blur(0px)' : 'blur(8px)',
+      }}
+      whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
       viewport={{ once, margin: '-80px' }}
-      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.8, delay, ease }}
     >
       {children}
     </motion.div>
@@ -49,7 +60,7 @@ export function Stagger({
       viewport={{ once: true, margin: '-80px' }}
       variants={{
         hidden: {},
-        show: { transition: { staggerChildren: 0.08, delayChildren: delay } },
+        show: { transition: { staggerChildren: 0.1, delayChildren: delay } },
       }}
     >
       {children}
@@ -60,22 +71,31 @@ export function Stagger({
 export function StaggerItem({
   children,
   className,
-  y = 24,
+  y = 32,
+  scale = 0.95,
 }: {
   children: React.ReactNode;
   className?: string;
   y?: number;
+  scale?: number;
 }) {
   const reduce = useReducedMotion();
   return (
     <motion.div
       className={className}
       variants={{
-        hidden: { opacity: 0, y: reduce ? 0 : y },
+        hidden: {
+          opacity: 0,
+          y: reduce ? 0 : y,
+          scale: reduce ? 1 : scale,
+          filter: reduce ? 'blur(0px)' : 'blur(6px)',
+        },
         show: {
           opacity: 1,
           y: 0,
-          transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+          scale: 1,
+          filter: 'blur(0px)',
+          transition: { duration: 0.8, ease },
         },
       }}
     >

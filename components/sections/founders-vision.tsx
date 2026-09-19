@@ -41,16 +41,17 @@ export function FoundersVision() {
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Leadership Vision & Brand Philosophy"
+          light
           title="Driven by Purpose. Built for Dominance."
           subtitle="Our core philosophy shapes how we think, innovate, and partner with ambitious brands across industries."
         />
 
         {/* Featured Vision Banner */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 32, filter: 'blur(8px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="mt-14 relative rounded-3xl border border-accent/30 bg-gradient-to-br from-accent/15 via-white/5 to-transparent p-8 md:p-12 shadow-2xl backdrop-blur-xl"
         >
           <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
@@ -63,7 +64,7 @@ export function FoundersVision() {
                 &ldquo;We don&apos;t just run campaigns — we build market-leading brands that endure.&rdquo;
               </h3>
 
-              <p className="mt-4 text-base text-navy-foreground/80 leading-relaxed font-sans">
+              <p className="mt-4 text-base text-body-muted leading-relaxed font-sans">
                 At Vystar Media, our founding vision is grounded in a simple truth: businesses don&apos;t just need more ads; they need cohesive growth engines. By uniting performance digital marketing, traditional offline advertising, world-class video production, and AI automation under one roof, we eliminate agency friction and accelerate long-term brand equity.
               </p>
             </div>
@@ -87,10 +88,10 @@ export function FoundersVision() {
             return (
               <motion.div
                 key={pillar.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                initial={{ opacity: 0, y: 32, filter: 'blur(8px)' }}
+                whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{ duration: 0.7, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
                 className="flex flex-col justify-between rounded-2xl border border-white/15 bg-white/5 p-7 backdrop-blur-md transition-all duration-300 hover:border-accent/40 hover:bg-white/10"
               >
                 <div>
@@ -98,7 +99,7 @@ export function FoundersVision() {
                     <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent/20 text-accent border border-accent/30">
                       <Icon className="h-6 w-6" />
                     </span>
-                    <span className="rounded-full bg-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-navy-foreground/70">
+                    <span className="rounded-full bg-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-body-muted">
                       {pillar.tag}
                     </span>
                   </div>
@@ -112,14 +113,14 @@ export function FoundersVision() {
 
                   <div className="mt-4 flex gap-2">
                     <Quote className="h-5 w-5 shrink-0 text-accent/50 rotate-180" />
-                    <p className="text-xs text-navy-foreground/80 leading-relaxed italic">
+                    <p className="text-xs text-body-muted leading-relaxed italic">
                       {pillar.quote}
                     </p>
                   </div>
                 </div>
 
-                <div className="mt-6 flex items-center gap-2 pt-4 border-t border-white/10 text-xs font-medium text-navy-foreground/60">
-                  <ShieldCheck className="h-4 w-4 text-emerald-400" />
+                <div className="mt-6 flex items-center gap-2 pt-4 border-t border-white/10 text-xs font-medium text-body-muted">
+                  <ShieldCheck className="h-4 w-4 text-highlight" />
                   <span>Vystar Media Core Directive</span>
                 </div>
               </motion.div>

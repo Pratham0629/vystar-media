@@ -9,7 +9,7 @@ import { services } from '@/lib/data';
 
 export function ServicesGrid() {
   return (
-    <section className="py-24 md:py-32">
+    <section className="bg-background py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Capabilities"
@@ -21,10 +21,10 @@ export function ServicesGrid() {
           {services.map((s, i) => (
             <motion.div
               key={s.id}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
+              initial={{ opacity: 0, y: 32, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.7, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
               className="rounded-2xl border border-border bg-card p-7 transition-all hover:border-accent/40 hover:shadow-xl hover:shadow-accent/5"
             >
               <div className="flex items-center gap-3">
@@ -33,7 +33,7 @@ export function ServicesGrid() {
                 </span>
                 <div>
                   <h3 className="font-display text-xl font-semibold">{s.title}</h3>
-                  <p className="text-sm text-muted-foreground">{s.blurb}</p>
+                  <p className="text-sm text-body-muted">{s.blurb}</p>
                 </div>
               </div>
 

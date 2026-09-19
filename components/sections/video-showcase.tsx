@@ -21,35 +21,51 @@ export type VideoItem = {
 export const sampleVideoEdits: VideoItem[] = [
   {
     id: '1',
-    title: 'Viral Short Form Reel Edit',
+    title: 'High-Retention Reel Edit #1',
     category: 'Reels & Shorts',
-    videoUrl: 'https://play.gumlet.io/embed/69f733741dfaccdc957ab32f?background=false&autoplay=true&loop=true',
+    videoUrl: 'https://drive.google.com/file/d/1Xk8BBj1oODuVtODq0P7a-lmi1aDDXzmg/preview',
     aspect: 'portrait',
-    description: 'High-pacing captions, dynamic motion graphics & viral retention hooks.',
+    description: 'Dynamic captions, motion graphics & engaging hook edit for social growth.',
   },
   {
     id: '2',
-    title: 'High ROAS Paid Ad Commercial',
+    title: 'Brand Ad & Performance Edit #2',
     category: 'Brand Ads',
-    videoUrl: 'https://play.gumlet.io/embed/6a6b877c921259f4eaf050ca?background=false&autoplay=true&loop=true',
-    aspect: 'landscape',
-    description: 'Cinematic brand commercial engineered for high Meta & YouTube ad ROAS.',
+    videoUrl: 'https://drive.google.com/file/d/1DuVbSCxJFcMy9ubBQClx-B1ZCk-ykHW8/preview',
+    aspect: 'portrait',
+    description: 'Cinematic ad edit engineered for high Meta & Instagram campaign conversions.',
   },
   {
     id: '3',
-    title: 'Podcast Highlights & Trailer',
-    category: 'Podcast Trailers',
-    videoUrl: 'https://play.gumlet.io/embed/68f85abb2bf0beb9829a7edd?background=false&autoplay=true&loop=true',
-    aspect: 'landscape',
-    description: 'Engaging podcast trailer edit with sound design & visual B-roll cuts.',
+    title: 'Viral Short Form Reel Edit #3',
+    category: 'Reels & Shorts',
+    videoUrl: 'https://drive.google.com/file/d/11fMqWHObtOI7Vj8VMQa5gs46hlfL6qQK/preview',
+    aspect: 'portrait',
+    description: 'Fast-paced storytelling edit with sound design and visual B-roll cuts.',
   },
   {
     id: '4',
-    title: 'YouTube Longform & Show Edit',
-    category: 'YouTube & Longform',
-    videoUrl: 'https://play.gumlet.io/embed/698b8d45873071aec5f38ae9?background=false&autoplay=true&loop=true',
+    title: 'Commercial & Product Edit #4',
+    category: 'Brand Ads',
+    videoUrl: 'https://drive.google.com/file/d/1nJ8FJ-w9a3e-vaxjju1wv556I4BgCZd4/preview',
     aspect: 'portrait',
-    description: 'Storytelling YouTube video editing with custom animations and graphics.',
+    description: 'High-impact commercial video production with visual branding effects.',
+  },
+  {
+    id: '5',
+    title: 'Podcast Highlights & Trailer #5',
+    category: 'Podcast Trailers',
+    videoUrl: 'https://drive.google.com/file/d/1UU0jXecExI7W6rZRyA8OYinXC19JUIwS/preview',
+    aspect: 'portrait',
+    description: 'Engaging podcast trailer edit with dynamic subtitle animation & audio master.',
+  },
+  {
+    id: '6',
+    title: 'YouTube Longform & Content Edit #6',
+    category: 'YouTube & Longform',
+    videoUrl: 'https://drive.google.com/file/d/1T6TR6_x0sb2qks8szOrXP37dQlD7INdi/preview',
+    aspect: 'portrait',
+    description: 'Narrative YouTube video editing with custom motion graphics & pacing.',
   },
 ];
 
@@ -70,7 +86,13 @@ export function VideoShowcase() {
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Creative Studio & Video Edits"
-          title="World-Class Video Editing & Production"
+          light
+          title={
+            <>
+              World-Class Video Editing &{' '}
+              <span className="text-highlight">Production</span>
+            </>
+          }
           subtitle="From high-retention Instagram Reels & YouTube Shorts to cinematic Brand Films and Podcast Trailers — explore our video edits below."
         />
 
@@ -84,7 +106,7 @@ export function VideoShowcase() {
                 'rounded-full px-5 py-2 text-xs font-semibold transition-all duration-300',
                 activeCategory === cat
                   ? 'bg-accent text-accent-foreground shadow-lg shadow-accent/25 scale-105'
-                  : 'bg-white/10 text-navy-foreground/70 hover:bg-white/20 hover:text-navy-foreground'
+                  : 'bg-white/10 text-body-muted hover:bg-white/20 hover:text-navy-foreground'
               )}
             >
               {cat}
@@ -97,10 +119,10 @@ export function VideoShowcase() {
           {filteredVideos.map((video, idx) => (
             <motion.div
               key={video.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              initial={{ opacity: 0, y: 32, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.7, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/15 bg-white/5 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/50 hover:shadow-2xl hover:shadow-accent/10"
             >
               <div
@@ -125,12 +147,12 @@ export function VideoShowcase() {
                   {video.category}
                 </span>
 
-                <h3 className="mt-2.5 font-display text-lg font-bold text-navy-foreground group-hover:text-accent transition-colors">
+                <h3 className="mt-2.5 font-display text-lg font-bold text-navy-foreground group-hover:text-highlight transition-colors">
                   {video.title}
                 </h3>
 
                 {video.description && (
-                  <p className="mt-1.5 text-xs text-navy-foreground/70 leading-relaxed">
+                  <p className="mt-1.5 text-xs text-body-muted leading-relaxed">
                     {video.description}
                   </p>
                 )}
@@ -145,7 +167,7 @@ export function VideoShowcase() {
             <h3 className="font-display text-2xl font-bold md:text-3xl text-navy-foreground">
               Want custom video edits for your brand?
             </h3>
-            <p className="mt-2 text-sm text-navy-foreground/70">
+            <p className="mt-2 text-sm text-body-muted">
               Send us your raw footage or video requirements — we handle scripting, hooks, editing, motion graphics & sound design.
             </p>
           </div>

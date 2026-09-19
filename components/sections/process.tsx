@@ -6,8 +6,7 @@ import { process } from '@/lib/data';
 
 export function Process() {
   return (
-    <section className="relative overflow-hidden py-24 md:py-32">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background via-secondary/20 to-background" />
+    <section className="relative overflow-hidden bg-section-alt py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="How We Work"
@@ -21,10 +20,10 @@ export function Process() {
             {process.map((p, i) => (
               <motion.div
                 key={p.step}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
+                initial={{ opacity: 0, y: 32, filter: 'blur(8px)' }}
+                whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                viewport={{ once: true, margin: '-80px' }}
+                transition={{ duration: 0.7, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
                 className="group relative"
               >
                 <div className="relative z-10 mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-accent/30 bg-card font-display text-lg font-bold text-accent shadow-sm transition-colors group-hover:bg-accent group-hover:text-accent-foreground">
@@ -34,7 +33,7 @@ export function Process() {
                   {p.duration}
                 </span>
                 <h3 className="font-display text-lg font-semibold">{p.title}</h3>
-                <p className="mt-1.5 text-sm text-muted-foreground">{p.desc}</p>
+                <p className="mt-1.5 text-sm text-body-muted">{p.desc}</p>
               </motion.div>
             ))}
           </div>

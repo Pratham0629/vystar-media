@@ -117,8 +117,7 @@ export function Contact() {
   };
 
   return (
-    <section className="relative overflow-hidden py-24 md:py-32">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background via-secondary/20 to-background" />
+    <section className="relative overflow-hidden bg-section-alt py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Get In Touch"
@@ -129,10 +128,10 @@ export function Contact() {
         <div className="mt-14 grid gap-8 lg:grid-cols-[1fr_0.9fr]">
           {/* Form */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, y: 32, filter: 'blur(8px)' }}
+            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="rounded-3xl border border-border bg-card p-6 sm:p-8"
           >
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
@@ -194,7 +193,7 @@ export function Contact() {
               </Button>
 
               {status === 'success' && (
-                <p className="flex items-center gap-2 text-sm text-emerald-600 dark:text-emerald-400">
+                <p className="flex items-center gap-2 text-sm text-highlight">
                   <CheckCircle2 className="h-4 w-4" />
                   Thanks! We&apos;ll be in touch within one business day.
                 </p>
@@ -210,10 +209,10 @@ export function Contact() {
 
           {/* Info */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            initial={{ opacity: 0, y: 32, filter: 'blur(8px)' }}
+            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col gap-4"
           >
             <InfoCard icon={Phone} title="Phone" lines={['+91 8468962914', '+91 7758894390', '+91 8329172035']} />
@@ -251,7 +250,7 @@ export function Contact() {
                 </span>
                 <div>
                   <p className="font-semibold">Chat on WhatsApp</p>
-                  <p className="text-sm text-muted-foreground">Fastest response</p>
+                  <p className="text-sm text-body-muted">Fastest response</p>
                 </div>
               </div>
               <span className="text-emerald-500 transition-transform group-hover:translate-x-1">→</span>
@@ -308,7 +307,7 @@ function InfoCard({
       <div>
         <p className="font-semibold">{title}</p>
         {lines.map((l) => (
-          <p key={l} className="text-sm text-muted-foreground">
+          <p key={l} className="text-sm text-body-muted">
             {l}
           </p>
         ))}

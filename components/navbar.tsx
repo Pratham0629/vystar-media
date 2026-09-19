@@ -60,10 +60,10 @@ export function Navbar() {
                   className={cn(
                     'relative rounded-full px-4 py-2 text-sm font-medium transition-colors',
                     active
-                      ? 'text-accent'
+                      ? 'text-highlight'
                       : isHome && !scrolled
-                        ? 'text-navy-foreground/70 hover:text-navy-foreground'
-                        : 'text-muted-foreground hover:text-foreground'
+                        ? 'text-body-muted hover:text-navy-foreground'
+                        : 'text-body-muted hover:text-foreground'
                   )}
                 >
                   {l.label}
@@ -83,7 +83,7 @@ export function Navbar() {
             <Button
               asChild
               size="sm"
-              className="hidden rounded-full bg-accent text-accent-foreground hover:bg-accent/90 md:inline-flex"
+              className="hidden rounded-lg bg-accent px-5 font-medium text-accent-foreground shadow-none hover:bg-accent/90 hover:scale-[1.02] transition-all md:inline-flex"
             >
               <Link href="/contact">
                 Get Consultation
@@ -118,7 +118,7 @@ export function Navbar() {
                           href={l.href}
                           className={cn(
                             'rounded-lg px-4 py-3 text-base font-medium transition-colors hover:bg-accent/10 hover:text-foreground',
-                            pathname === l.href ? 'text-accent' : 'text-muted-foreground'
+                            pathname === l.href ? 'text-highlight' : 'text-body-muted'
                           )}
                         >
                           {l.label}
@@ -130,7 +130,7 @@ export function Navbar() {
                     <SheetClose asChild>
                       <Button
                         asChild
-                        className="w-full rounded-full bg-accent text-accent-foreground hover:bg-accent/90"
+                        className="w-full rounded-lg bg-accent font-medium text-accent-foreground shadow-none hover:bg-accent/90"
                       >
                         <Link href="/contact">Get Free Consultation</Link>
                       </Button>

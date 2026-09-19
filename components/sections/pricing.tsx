@@ -10,8 +10,7 @@ import { cn } from '@/lib/utils';
 
 export function Pricing() {
   return (
-    <section className="relative overflow-hidden py-24 md:py-32">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-secondary/30 to-background" />
+    <section className="relative overflow-hidden bg-section-alt py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Pricing"
@@ -23,10 +22,10 @@ export function Pricing() {
           {plans.map((p, i) => (
             <motion.div
               key={p.name}
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              initial={{ opacity: 0, y: 32, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.7, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
               className={cn(
                 'relative flex flex-col rounded-3xl border p-7',
                 p.highlight
@@ -45,13 +44,13 @@ export function Pricing() {
                 ) : null}
                 <h3 className="font-display text-2xl font-bold">{p.name}</h3>
               </div>
-              <p className="mt-2 text-sm text-muted-foreground">{p.tagline}</p>
+              <p className="mt-2 text-sm text-body-muted">{p.tagline}</p>
 
               <div className="mt-6">
-                <p className="font-display text-2xl font-semibold text-accent">
+                <p className="font-display text-2xl font-semibold text-highlight">
                   Contact for Custom Quote
                 </p>
-                <p className="mt-1 text-xs text-muted-foreground">
+                <p className="mt-1 text-xs text-body-muted">
                   Tailored to your scope, channels & goals.
                 </p>
               </div>

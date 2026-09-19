@@ -6,7 +6,7 @@ import { values } from '@/lib/data';
 
 export function Values() {
   return (
-    <section className="py-24 md:py-32">
+    <section className="bg-background py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Our Values"
@@ -17,17 +17,17 @@ export function Values() {
           {values.map((v, i) => (
             <motion.div
               key={v.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.5, delay: i * 0.07 }}
+              initial={{ opacity: 0, y: 32, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.7, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] }}
               className="rounded-2xl border border-border bg-card p-7 transition-all hover:-translate-y-1 hover:border-accent/40 hover:shadow-xl hover:shadow-accent/5"
             >
               <span className="font-display text-3xl font-bold text-accent/30">
                 {String(i + 1).padStart(2, '0')}
               </span>
               <h3 className="mt-3 font-display text-lg font-semibold">{v.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{v.desc}</p>
+              <p className="mt-2 text-sm text-body-muted">{v.desc}</p>
             </motion.div>
           ))}
         </div>

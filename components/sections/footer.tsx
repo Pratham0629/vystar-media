@@ -59,7 +59,7 @@ export function Footer() {
             <h3 className="font-display text-2xl font-bold md:text-3xl">
               Ready to expand your brand?
             </h3>
-            <p className="mt-2 text-navy-foreground/60">
+            <p className="mt-2 text-body-muted">
               Get a free, no-obligation consultation with our strategy team.
             </p>
           </div>
@@ -80,7 +80,7 @@ export function Footer() {
             <Link href="/" className="group flex items-center gap-2.5">
               <Logo isLightText />
             </Link>
-            <p className="mt-4 max-w-xs text-sm text-navy-foreground/60">
+            <p className="mt-4 max-w-xs text-sm text-body-muted">
               Expanding Brands Beyond Boundaries. A full-service marketing &
               branding agency for ambitious organizations.
             </p>
@@ -90,7 +90,7 @@ export function Footer() {
                   key={s.label}
                   href={s.href}
                   aria-label={s.label}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-navy-foreground/70 transition-colors hover:border-accent/50 hover:bg-accent hover:text-accent-foreground"
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-body-muted transition-colors hover:border-accent/50 hover:bg-accent hover:text-accent-foreground"
                 >
                   <s.icon className="h-4 w-4" />
                 </a>
@@ -107,7 +107,7 @@ export function Footer() {
                 <li key={s.id}>
                   <Link
                     href="/services"
-                    className="text-navy-foreground/60 transition-colors hover:text-accent"
+                    className="text-body-muted transition-colors hover:text-highlight"
                   >
                     {s.title}
                   </Link>
@@ -125,7 +125,7 @@ export function Footer() {
                 <li key={i.name}>
                   <Link
                     href="/services"
-                    className="text-navy-foreground/60 transition-colors hover:text-accent"
+                    className="text-body-muted transition-colors hover:text-highlight"
                   >
                     {i.name}
                   </Link>
@@ -143,7 +143,7 @@ export function Footer() {
                 <li key={c.label}>
                   <Link
                     href={c.href}
-                    className="text-navy-foreground/60 transition-colors hover:text-accent"
+                    className="text-body-muted transition-colors hover:text-highlight"
                   >
                     {c.label}
                   </Link>
@@ -152,7 +152,7 @@ export function Footer() {
             </ul>
 
             <form onSubmit={subscribe} className="mt-6">
-              <p className="text-sm font-medium text-navy-foreground/80">
+              <p className="text-sm font-medium text-navy-foreground">
                 Subscribe to our newsletter
               </p>
               <div className="mt-3 flex gap-2">
@@ -161,7 +161,7 @@ export function Footer() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your email"
-                  className="border-white/10 bg-white/5 text-navy-foreground placeholder:text-navy-foreground/40"
+                  className="border-white/10 bg-white/5 text-navy-foreground placeholder:text-body-muted"
                 />
                 <Button
                   type="submit"
@@ -173,14 +173,14 @@ export function Footer() {
                 </Button>
               </div>
               {done && (
-                <p className="mt-2 text-xs text-emerald-400">Subscribed! Thank you.</p>
+                <p className="mt-2 text-xs text-highlight">Subscribed! Thank you.</p>
               )}
             </form>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-sm text-navy-foreground/50 md:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-sm text-body-muted md:flex-row">
           <p>© {new Date().getFullYear()} Vystar Media. All rights reserved.</p>
           <div className="flex gap-5">
             {legal.map((l) => (

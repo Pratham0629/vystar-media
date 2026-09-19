@@ -37,14 +37,15 @@ export function GrowthCalculator() {
   const estimatedROAS = currentGoal.roas;
 
   return (
-    <section className="relative overflow-hidden bg-navy/95 py-24 text-navy-foreground md:py-32">
+    <section className="relative overflow-hidden bg-navy py-24 text-navy-foreground md:py-32">
       <div className="absolute inset-0 navy-grid opacity-30" />
       <div className="pointer-events-none absolute -left-20 top-1/4 h-96 w-96 rounded-full bg-accent/15 blur-3xl" />
-      <div className="pointer-events-none absolute -right-20 bottom-10 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl" />
+      <div className="pointer-events-none absolute -right-20 bottom-10 h-96 w-96 rounded-full bg-accent/10 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="Interactive ROI Estimator"
+          light
           title="Estimate Your Brand Growth Potential"
           subtitle="Select your primary objective and monthly marketing budget to simulate potential reach and return."
         />
@@ -68,10 +69,10 @@ export function GrowthCalculator() {
                     className={`flex flex-col items-start rounded-2xl border p-4 text-left transition-all ${
                       active
                         ? 'border-accent bg-accent/15 text-white shadow-lg shadow-accent/20'
-                        : 'border-white/10 bg-white/5 text-navy-foreground/70 hover:border-white/20 hover:text-white'
+                        : 'border-white/10 bg-white/5 text-body-muted hover:border-white/20 hover:text-navy-foreground'
                     }`}
                   >
-                    <Icon className={`h-5 w-5 ${active ? 'text-accent' : 'text-navy-foreground/60'}`} />
+                    <Icon className={`h-5 w-5 ${active ? 'text-highlight' : 'text-body-muted'}`} />
                     <span className="mt-2 text-sm font-semibold">{g.label}</span>
                   </button>
                 );
@@ -99,7 +100,7 @@ export function GrowthCalculator() {
                 className="mt-6 h-3 w-full cursor-pointer appearance-none rounded-lg bg-white/10 accent-accent"
               />
 
-              <div className="mt-2 flex justify-between text-xs text-navy-foreground/50 font-medium">
+              <div className="mt-2 flex justify-between text-xs text-body-muted font-medium">
                 <span>₹25,000</span>
                 <span>₹5,000,000</span>
                 <span>₹10,00,000+</span>
@@ -115,40 +116,40 @@ export function GrowthCalculator() {
 
             <div className="mt-6 grid grid-cols-2 gap-4">
               <div className="rounded-2xl border border-white/10 bg-navy/60 p-5">
-                <p className="text-xs text-navy-foreground/60 font-medium">Estimated Reach</p>
-                <p className="mt-2 font-display text-3xl font-bold tracking-tight text-accent">
+                <p className="text-xs text-body-muted font-medium">Estimated Reach</p>
+                <p className="mt-2 font-display text-3xl font-bold tracking-tight text-highlight">
                   {estimatedReach > 1000000
                     ? `${(estimatedReach / 1000000).toFixed(1)}M+`
                     : `${(estimatedReach / 1000).toFixed(0)}K+`}
                 </p>
-                <p className="mt-1 text-[11px] text-navy-foreground/40">Targeted impressions</p>
+                <p className="mt-1 text-[11px] text-body-muted">Targeted impressions</p>
               </div>
 
               <div className="rounded-2xl border border-white/10 bg-navy/60 p-5">
-                <p className="text-xs text-navy-foreground/60 font-medium">Target ROAS</p>
-                <p className="mt-2 font-display text-3xl font-bold tracking-tight text-emerald-400">
+                <p className="text-xs text-body-muted font-medium">Target ROAS</p>
+                <p className="mt-2 font-display text-3xl font-bold tracking-tight text-highlight">
                   {estimatedROAS}
                 </p>
-                <p className="mt-1 text-[11px] text-navy-foreground/40">Estimated Return</p>
+                <p className="mt-1 text-[11px] text-body-muted">Estimated Return</p>
               </div>
             </div>
 
             <div className="mt-4 rounded-2xl border border-white/10 bg-navy/60 p-5">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-xs text-navy-foreground/60 font-medium">Potential Monthly Leads / Conversions</p>
-                  <p className="mt-1 font-display text-2xl font-bold text-white">
+                  <p className="text-xs text-body-muted font-medium">Potential Monthly Leads / Conversions</p>
+                  <p className="mt-1 font-display text-2xl font-bold text-navy-foreground">
                     ~{estimatedLeads.toLocaleString('en-IN')} Qualified Prospects
                   </p>
                 </div>
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/20 text-highlight">
                   <CheckCircle2 className="h-5 w-5" />
                 </span>
               </div>
             </div>
 
             <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-white/10 pt-6">
-              <p className="text-xs text-navy-foreground/60">
+              <p className="text-xs text-body-muted">
                 Want a custom audit tailored specifically to your brand?
               </p>
               <Button

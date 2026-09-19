@@ -13,7 +13,7 @@ import { faqs } from '@/lib/data';
 
 export function FAQ() {
   return (
-    <section className="py-24 md:py-32">
+    <section className="bg-section-alt py-24 md:py-32">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           eyebrow="FAQ"
@@ -22,10 +22,10 @@ export function FAQ() {
         />
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0, y: 32, filter: 'blur(8px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="mt-12"
         >
           <Accordion type="single" collapsible className="w-full">
@@ -38,7 +38,7 @@ export function FAQ() {
                 <AccordionTrigger className="text-left text-base font-medium hover:no-underline">
                   {f.q}
                 </AccordionTrigger>
-                <AccordionContent className="text-sm text-muted-foreground">
+                <AccordionContent className="text-sm text-body-muted">
                   {f.a}
                 </AccordionContent>
               </AccordionItem>
