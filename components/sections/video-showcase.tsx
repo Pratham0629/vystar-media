@@ -132,9 +132,6 @@ export function VideoShowcase() {
         {/* 100% Mobile Optimized & Continuous Autoplay Grid */}
         <div className="mt-10 grid gap-4 grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 md:gap-6">
           {filteredVideos.map((video, idx) => {
-            const embedPreviewUrl = `https://drive.google.com/file/d/${video.driveId}/preview?autoplay=1&mute=1&loop=1`;
-            const directStreamUrl = `https://lh3.googleusercontent.com/d/${video.driveId}`;
-
             return (
               <motion.div
                 key={video.id}
@@ -144,40 +141,20 @@ export function VideoShowcase() {
                 transition={{ duration: 0.4, delay: (idx % 4) * 0.06 }}
                 className="group relative flex flex-col overflow-hidden rounded-xl border border-white/15 bg-navy-950/80 backdrop-blur-md transition-all duration-300 hover:border-accent/60 hover:shadow-2xl hover:shadow-accent/15"
               >
-                {/* 100% Autoplay Media Frame */}
+                {/* 100% Guaranteed Google Drive iFrame Player */}
                 <div className="relative aspect-[9/15] w-full overflow-hidden bg-black">
-                  {/* HTML5 Direct Video Stream (100% Instant Mobile Autoplay) */}
-                  <video
-                    src={directStreamUrl}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    preload="metadata"
-                    className="h-full w-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
-                    onError={(e) => {
-                      // Fallback to Google Drive iframe if direct stream is restricted
-                      const target = e.currentTarget;
-                      target.style.display = 'none';
-                      const iframe = target.nextElementSibling as HTMLIFrameElement;
-                      if (iframe) iframe.style.display = 'block';
-                    }}
-                  />
-
-                  {/* Fallback iFrame Preview Player */}
                   <iframe
-                    src={embedPreviewUrl}
+                    src={`https://drive.google.com/file/d/${video.driveId}/preview`}
                     title={video.title}
                     loading="lazy"
-                    style={{ display: 'none' }}
-                    className="h-full w-full border-0 group-hover:scale-[1.03] transition-transform duration-500"
+                    className="h-full w-full border-0 group-hover:scale-[1.02] transition-transform duration-500"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                   />
 
                   {/* Top Quality Badge */}
-                  <div className="absolute top-2 left-2 z-10">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-black/60 backdrop-blur-md px-2 py-0.5 text-[9px] font-semibold text-emerald-400 border border-emerald-500/30">
+                  <div className="pointer-events-none absolute top-2 left-2 z-10">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-black/70 backdrop-blur-md px-2 py-0.5 text-[9px] font-semibold text-emerald-400 border border-emerald-500/30">
                       <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
                       1080p HD
                     </span>
@@ -186,7 +163,7 @@ export function VideoShowcase() {
                   {/* Expand Fullscreen Button */}
                   <button
                     onClick={() => setSelectedVideo(video)}
-                    className="absolute top-2 right-2 z-20 flex h-7 w-7 items-center justify-center rounded-full bg-black/70 text-white backdrop-blur-md border border-white/20 transition-all hover:bg-accent hover:text-navy-950"
+                    className="absolute top-2 right-2 z-20 flex h-7 w-7 items-center justify-center rounded-full bg-black/80 text-white backdrop-blur-md border border-white/20 transition-all hover:bg-accent hover:text-navy-950"
                     title="Watch Fullscreen"
                   >
                     <Maximize2 className="h-3.5 w-3.5" />

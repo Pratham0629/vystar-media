@@ -23,19 +23,19 @@ export function Hero() {
           initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 0.7, ease }}
-          className="mb-8 inline-flex items-center gap-3 rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium backdrop-blur-sm"
+          className="mb-8 inline-flex items-center gap-3 rounded-lg border border-white/15 bg-white/10 px-4 py-2 text-xs font-medium backdrop-blur-sm"
         >
-          <div className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-white/10">
+          <div className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-white p-1 shadow-md shadow-accent/20 ring-1 ring-accent/40">
             <Image
               src="/images/vystar-emblem.png"
               alt="Vystar Media Emblem"
               width={48}
               height={48}
-              className="h-5 w-5 object-contain"
+              className="h-full w-full object-contain"
               priority
             />
           </div>
-          <span className="text-body-muted">The Marketing Infrastructure for Growth</span>
+          <span className="text-white font-semibold">The Marketing Infrastructure for Growth</span>
         </motion.div>
 
         <motion.h1
