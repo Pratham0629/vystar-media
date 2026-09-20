@@ -66,6 +66,22 @@ export const sampleVideoEdits: VideoItem[] = [
     aspect: 'portrait',
     description: 'Storytelling YouTube video editing with custom motion graphics & pacing.',
   },
+  {
+    id: '7',
+    title: 'Creative Brand & Motion Edit #7',
+    category: 'Reels & Shorts',
+    videoUrl: 'https://drive.google.com/file/d/1kpgAIGVYt1PX9ZaHxJb4OcNpqlSZzdUh/preview',
+    aspect: 'portrait',
+    description: 'Dynamic motion typography, visual effects & storytelling reel.',
+  },
+  {
+    id: '8',
+    title: 'High-Impact Social Ad Commercial #8',
+    category: 'Brand Ads',
+    videoUrl: 'https://drive.google.com/file/d/1Q5WEiaRAC3LF_8tgMT03FsF0_-YhkM2N/preview',
+    aspect: 'portrait',
+    description: 'High-converting Meta ad creative with custom sound mastering & pacing.',
+  },
 ];
 
 export function VideoShowcase() {
