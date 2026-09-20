@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Sparkles, X, ArrowRight, Film, Maximize2 } from 'lucide-react';
+import { Play, Sparkles, X, ArrowRight, Film, Maximize2, Volume2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SectionHeading } from '@/components/section-heading';
 import { cn } from '@/lib/utils';
@@ -15,63 +15,56 @@ export type VideoItem = {
   videoUrl: string;
   aspect?: 'portrait' | 'landscape';
   description?: string;
-  gradient?: string;
 };
 
 export const sampleVideoEdits: VideoItem[] = [
   {
     id: '1',
-    title: 'High-Retention Reel Edit #1',
+    title: 'Creative Instagram Reel & Motion FX',
     category: 'Reels & Shorts',
     videoUrl: 'https://drive.google.com/file/d/1Xk8BBj1oODuVtODq0P7a-lmi1aDDXzmg/preview',
     aspect: 'portrait',
-    description: 'Dynamic captions, motion graphics & engaging hook edit for social growth.',
-    gradient: 'from-amber-600/30 via-navy to-black',
+    description: 'High-retention short form reel with animated captions & dynamic visual hooks.',
   },
   {
     id: '2',
-    title: 'Brand Ad & Performance Edit #2',
+    title: 'High-ROAS Meta Paid Ad Commercial',
     category: 'Brand Ads',
     videoUrl: 'https://drive.google.com/file/d/1DuVbSCxJFcMy9ubBQClx-B1ZCk-ykHW8/preview',
     aspect: 'portrait',
-    description: 'Cinematic ad edit engineered for high Meta & Instagram campaign conversions.',
-    gradient: 'from-blue-600/30 via-navy to-black',
+    description: 'Cinematic ad edit engineered for maximum CTR and campaign conversions.',
   },
   {
     id: '3',
-    title: 'Viral Short Form Reel Edit #3',
+    title: 'Viral Social Campaign & B-Roll Edit',
     category: 'Reels & Shorts',
     videoUrl: 'https://drive.google.com/file/d/11fMqWHObtOI7Vj8VMQa5gs46hlfL6qQK/preview',
     aspect: 'portrait',
-    description: 'Fast-paced storytelling edit with sound design and visual B-roll cuts.',
-    gradient: 'from-purple-600/30 via-navy to-black',
+    description: 'Fast-paced viral editing with custom sound design & seamless transitions.',
   },
   {
     id: '4',
-    title: 'Commercial & Product Edit #4',
+    title: 'Product Showcase & Brand Film',
     category: 'Brand Ads',
     videoUrl: 'https://drive.google.com/file/d/1nJ8FJ-w9a3e-vaxjju1wv556I4BgCZd4/preview',
     aspect: 'portrait',
-    description: 'High-impact commercial video production with visual branding effects.',
-    gradient: 'from-emerald-600/30 via-navy to-black',
+    description: 'High-impact commercial video production with visual branding overlays.',
   },
   {
     id: '5',
-    title: 'Podcast Highlights & Trailer #5',
+    title: 'Podcast Highlights & Master Edit',
     category: 'Podcast Trailers',
     videoUrl: 'https://drive.google.com/file/d/1UU0jXecExI7W6rZRyA8OYinXC19JUIwS/preview',
     aspect: 'portrait',
-    description: 'Engaging podcast trailer edit with dynamic subtitle animation & audio master.',
-    gradient: 'from-rose-600/30 via-navy to-black',
+    description: 'Engaging podcast trailer edit with animated captions & audio mastering.',
   },
   {
     id: '6',
-    title: 'YouTube Longform & Content Edit #6',
+    title: 'YouTube Longform & Narrative Production',
     category: 'YouTube & Longform',
     videoUrl: 'https://drive.google.com/file/d/1T6TR6_x0sb2qks8szOrXP37dQlD7INdi/preview',
     aspect: 'portrait',
-    description: 'Narrative YouTube video editing with custom motion graphics & pacing.',
-    gradient: 'from-cyan-600/30 via-navy to-black',
+    description: 'Storytelling YouTube video editing with custom motion graphics & pacing.',
   },
 ];
 
@@ -99,7 +92,7 @@ export function VideoShowcase() {
               <span className="text-highlight">Production</span>
             </>
           }
-          subtitle="Click any edit below to watch in full-screen high definition."
+          subtitle="Playing live in 1080p Full HD. Click any edit for full-screen expanded view."
         />
 
         {/* Category Tabs */}
@@ -120,7 +113,7 @@ export function VideoShowcase() {
           ))}
         </div>
 
-        {/* High Performance Video Cards Grid */}
+        {/* Continuous Autoplay Video Grid */}
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filteredVideos.map((video, idx) => (
             <motion.div
@@ -129,41 +122,41 @@ export function VideoShowcase() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.5, delay: idx * 0.08 }}
-              className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/15 bg-white/5 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/50 hover:shadow-2xl hover:shadow-accent/15"
+              className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/15 bg-white/5 backdrop-blur-md transition-all duration-300 hover:border-accent/50 hover:shadow-2xl hover:shadow-accent/15"
             >
-              {/* Card Media Preview Container */}
-              <div
-                onClick={() => setSelectedVideo(video)}
-                className="relative aspect-[9/14] w-full cursor-pointer overflow-hidden bg-gradient-to-b from-navy-900 via-black/80 to-black"
-              >
-                {/* On-Demand Lazy Loaded iFrame or Poster */}
+              {/* Autoplay Video Player Container (Continuous 1080p) */}
+              <div className="relative aspect-[9/14] w-full overflow-hidden bg-black">
                 <iframe
-                  src={video.videoUrl}
+                  src={`${video.videoUrl}?autoplay=1&mute=1&vq=hd1080&loop=1`}
                   title={video.title}
                   loading="lazy"
-                  className="h-full w-full border-0 pointer-events-none group-hover:scale-105 transition-transform duration-500"
-                  allow="autoplay"
+                  className="h-full w-full border-0 group-hover:scale-[1.02] transition-transform duration-500"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
                 />
 
-                {/* Glass Hover Overlay with Play Button */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col items-center justify-center p-6 opacity-80 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-accent text-navy-950 shadow-xl shadow-accent/40 group-hover:scale-110 transition-transform duration-300">
-                    <Play className="h-7 w-7 fill-navy-950 ml-1" />
-                  </div>
-
-                  <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold text-white backdrop-blur-md border border-white/20">
-                    <Maximize2 className="h-3.5 w-3.5" /> Watch Full Edit
-                  </span>
-                </div>
+                {/* Expand to Fullscreen Lightbox Button Overlay */}
+                <button
+                  onClick={() => setSelectedVideo(video)}
+                  className="absolute top-3 right-3 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-md border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-accent hover:text-navy-950"
+                  title="Expand to Fullscreen"
+                >
+                  <Maximize2 className="h-4 w-4" />
+                </button>
               </div>
 
               {/* Details Info */}
-              <div className="flex flex-1 flex-col p-5">
-                <span className="inline-flex w-max rounded-full bg-accent/20 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-accent border border-accent/30">
-                  {video.category}
-                </span>
+              <div className="flex flex-1 flex-col p-5 bg-navy-950/40">
+                <div className="flex items-center justify-between">
+                  <span className="inline-flex rounded-full bg-accent/20 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-accent border border-accent/30">
+                    {video.category}
+                  </span>
+                  <span className="text-[10px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                    ⚡ 1080p HD
+                  </span>
+                </div>
 
-                <h3 className="mt-2.5 font-display text-lg font-bold text-navy-foreground group-hover:text-highlight transition-colors">
+                <h3 className="mt-2.5 font-display text-base font-bold text-navy-foreground group-hover:text-highlight transition-colors">
                   {video.title}
                 </h3>
 
@@ -208,7 +201,7 @@ export function VideoShowcase() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedVideo(null)}
-            className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/90 p-4 backdrop-blur-xl"
+            className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/95 p-4 backdrop-blur-xl"
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
@@ -220,7 +213,7 @@ export function VideoShowcase() {
               {/* Modal Close Button */}
               <button
                 onClick={() => setSelectedVideo(null)}
-                className="absolute top-4 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-black/60 text-white hover:bg-accent hover:text-navy-950 transition-colors"
+                className="absolute top-4 right-4 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-black/70 text-white hover:bg-accent hover:text-navy-950 transition-colors"
                 aria-label="Close video player"
               >
                 <X className="h-5 w-5" />
@@ -229,7 +222,7 @@ export function VideoShowcase() {
               {/* Fullscreen Video iFrame */}
               <div className="relative aspect-[9/16] max-h-[80vh] w-full bg-black sm:aspect-[16/9]">
                 <iframe
-                  src={`${selectedVideo.videoUrl}?autoplay=1`}
+                  src={`${selectedVideo.videoUrl}?autoplay=1&vq=hd1080`}
                   title={selectedVideo.title}
                   className="h-full w-full border-0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

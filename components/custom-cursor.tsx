@@ -27,8 +27,8 @@ export function CustomCursor() {
 
     const render = () => {
       // Smooth lerp for outer follower ring (120fps physics)
-      ringX += (mouseX - ringX) * 0.15;
-      ringY += (mouseY - ringY) * 0.15;
+      ringX += (mouseX - ringX) * 0.18;
+      ringY += (mouseY - ringY) * 0.18;
 
       ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
 
@@ -66,18 +66,18 @@ export function CustomCursor() {
 
   return (
     <>
-      {/* Precision Inner Dot */}
+      {/* Sleek Small Inner Dot */}
       <div
         ref={cursorDotRef}
-        className="pointer-events-none fixed top-0 left-0 z-[9999] hidden h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent transition-transform duration-75 ease-out md:block will-change-transform"
+        className="pointer-events-none fixed top-0 left-0 z-[9999] hidden h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent transition-transform duration-75 ease-out md:block will-change-transform"
         style={{ transform: 'translate3d(-100px, -100px, 0)' }}
       />
 
-      {/* Ultra Smooth Outer Glow Ring */}
+      {/* Sleek Small Outer Ring */}
       <div
         ref={cursorRingRef}
         aria-hidden="true"
-        className="pointer-events-none fixed top-0 left-0 z-[9998] hidden h-9 w-9 -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent/60 bg-accent/5 backdrop-blur-[1px] transition-[width,height,background-color,border-color] duration-200 ease-out md:block will-change-transform shadow-[0_0_15px_rgba(234,179,8,0.2)]"
+        className="pointer-events-none fixed top-0 left-0 z-[9998] hidden h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent/70 bg-accent/10 transition-[width,height,background-color,border-color] duration-200 ease-out md:block will-change-transform shadow-[0_0_10px_rgba(255,185,80,0.3)]"
         style={{ transform: 'translate3d(-100px, -100px, 0)' }}
       />
     </>
