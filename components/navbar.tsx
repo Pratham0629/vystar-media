@@ -13,7 +13,6 @@ import {
   SheetTitle,
   SheetClose,
 } from '@/components/ui/sheet';
-import { ThemeToggle } from '@/components/theme-toggle';
 import { Logo } from '@/components/logo';
 import { navLinks } from '@/lib/data';
 import { cn } from '@/lib/utils';
@@ -79,7 +78,6 @@ export function Navbar() {
           </div>
 
           <div className="flex items-center gap-2">
-            <ThemeToggle />
             <Button
               asChild
               size="sm"
