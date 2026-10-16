@@ -360,14 +360,27 @@ export function AIAudit() {
                 {/* Call to Action */}
                 <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-border">
                   <p className="text-xs text-muted-foreground">
-                    Ready to execute this growth blueprint with Pratham & team?
+                    Ready to execute this growth blueprint with the Vystar team?
                   </p>
-                  <Button asChild className="rounded-full bg-accent text-navy-950 font-bold hover:bg-accent/90">
-                    <Link href="/contact">
-                      Execute Plan with Vystar
-                      <ArrowRight className="ml-1.5 h-4 w-4" />
-                    </Link>
-                  </Button>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Button asChild size="sm" className="rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold">
+                      <a
+                        href={`https://api.whatsapp.com/send?phone=918468962914&text=${encodeURIComponent(
+                          `🔥 *AI Growth Audit Consultation*\n━━━━━━━━━━━━━━━━━━━━\n🏢 *Business:* ${businessName}\n🌐 *Website:* ${websiteUrl || 'Not provided'}\n🎯 *Goal:* ${goal}\n📊 *Audit Score:* ${result.overallScore}%\n━━━━━━━━━━━━━━━━━━━━\nI want to discuss our custom growth plan.`
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Chat on WhatsApp
+                        <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+                      </a>
+                    </Button>
+                    <Button asChild size="sm" variant="outline" className="rounded-full">
+                      <Link href="/contact">
+                        Contact Page
+                      </Link>
+                    </Button>
+                  </div>
                 </div>
               </motion.div>
             ) : (

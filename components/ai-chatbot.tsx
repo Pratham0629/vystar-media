@@ -17,7 +17,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { supabase } from '@/lib/supabase';
 
 type Message = {
   id: string;
@@ -139,19 +138,47 @@ export function AIChatbot() {
     setLeadCaptured(true);
     const lastQuery = messages[messages.length - 1]?.text || 'General Inquiry';
 
+    // Build WhatsApp message
+    const waText = [
+      '💬 *New Chatbot Inquiry — Vystar Media*',
+      '━━━━━━━━━━━━━━━━━━━━',
+      `📱 *Contact Info:* ${contactInfo}`,
+      `❓ *Topic/Interest:* ${lastQuery}`,
+      '━━━━━━━━━━━━━━━━━━━━',
+      '🌐 *Sent via:* vystarmedia.in',
+    ].join('\n');
+    const waUrl = `https://api.whatsapp.com/send?phone=918468962914&text=${encodeURIComponent(waText)}`;
+
+    // Local storage backup
     try {
-      await supabase.from('chat_leads').insert({
-        contact_info: contactInfo,
-        last_query: lastQuery,
-      });
+      const existing = JSON.parse(localStorage.getItem('vystar_leads') || '[]');
+      localStorage.setItem('vystar_leads', JSON.stringify([{
+        id: 'chat-' + Date.now(),
+        created_at: new Date().toISOString(),
+        name: 'Chatbot Visitor',
+        email: contactInfo.includes('@') ? contactInfo : '',
+        phone: !contactInfo.includes('@') ? contactInfo : '',
+        company: '',
+        message: `Chatbot Inquiry: ${lastQuery} | Contact: ${contactInfo}`,
+      }, ...existing]));
     } catch (err) {
-      console.error('Database chat lead error:', err);
+      console.warn(err);
+    }
+
+    try {
+      const win = window.open(waUrl, '_blank');
+      if (!win || win.closed || typeof win.closed === 'undefined') {
+        window.location.href = waUrl;
+      }
+    } catch {
+      window.location.href = waUrl;
     }
 
     const botMsg: Message = {
       id: Date.now().toString(),
       sender: 'bot',
-      text: `🎉 Thank you! We have received your contact detail (${contactInfo}). Our senior growth team will get back to you within 2 hours!`,
+      text: `🎉 Thank you! We are redirecting you to WhatsApp (+91 8468962914) to chat directly with our team!`,
+      options: ['💬 Chat on WhatsApp (+91 8468962914)'],
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
     setMessages((prev) => [...prev, botMsg]);
@@ -276,6 +303,10 @@ export function AIChatbot() {
                             if (opt.includes('Take me to AI Audit Tool')) {
                               window.location.href = '/ai-audit';
                               setIsOpen(false);
+                              return;
+                            }
+                            if (opt.includes('Chat on WhatsApp')) {
+                              window.open('https://wa.me/918468962914', '_blank');
                               return;
                             }
                             handleSend(opt);

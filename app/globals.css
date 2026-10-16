@@ -635,6 +635,130 @@
   }
 }
 
+.hero-green-light-core {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 25vw solid transparent;
+  border-right: 25vw solid transparent;
+  border-bottom: 45vh solid rgba(255, 185, 80, 0.95);
+  filter: blur(70px);
+  will-change: opacity, transform;
+  animation: hero-green-breathe 6s ease-in-out infinite;
+}
+
+.hero-green-light-haze {
+  position: absolute;
+  bottom: 7%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 30vw solid transparent;
+  border-right: 30vw solid transparent;
+  border-bottom: 50vh solid rgba(255, 140, 60, 0.85);
+  filter: blur(90px);
+  mix-blend-mode: screen;
+  will-change: opacity;
+  animation: hero-green-haze-pulse 8s ease-in-out infinite;
+}
+
+.hero-green-light-falloff {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 28vw solid transparent;
+  border-right: 28vw solid transparent;
+  border-bottom: 55vh solid rgba(255, 140, 60, 0.7);
+  filter: blur(110px);
+  will-change: opacity;
+  animation: hero-green-falloff 10s ease-in-out infinite;
+}
+
+.hero-green-light-ambient {
+  position: absolute;
+  bottom: 3%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 22vw solid transparent;
+  border-right: 22vw solid transparent;
+  border-bottom: 40vh solid rgba(255, 185, 80, 0.9);
+  filter: blur(55px);
+  will-change: opacity;
+  animation: hero-green-ambient 7s ease-in-out infinite;
+}
+
+.hero-green-light-shine {
+  position: absolute;
+  bottom: 6%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 20vw solid transparent;
+  border-right: 20vw solid transparent;
+  border-bottom: 35vh solid rgba(255, 220, 160, 0.6);
+  filter: blur(40px);
+  mix-blend-mode: overlay;
+  will-change: opacity;
+  animation: hero-green-shine 5s ease-in-out infinite;
+}
+
+@keyframes hero-green-breathe {
+  0%, 100% {
+    opacity: 0.8;
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.05);
+  }
+}
+
+@keyframes hero-green-haze-pulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes hero-green-falloff {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes hero-green-ambient {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes hero-green-shine {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;

@@ -7,6 +7,7 @@ import { ArrowRight, TrendingUp, Users, BarChart3 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useRef } from 'react';
 import { MagneticButton } from '@/components/magnetic-btn';
+import { HeroGlow } from '@/components/hero-glow';
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -16,6 +17,7 @@ export function Hero() {
       id="home"
       className="relative overflow-hidden bg-navy pt-32 pb-20 text-navy-foreground md:pt-44 md:pb-28"
     >
+      <HeroGlow />
       <HeroBackground />
 
       <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">

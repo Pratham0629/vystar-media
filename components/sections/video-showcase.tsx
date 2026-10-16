@@ -12,7 +12,7 @@ export type VideoItem = {
   id: string;
   driveId: string;
   title: string;
-  category: 'Reels & Shorts' | 'YouTube & Longform' | 'Brand Ads' | 'Podcast Trailers';
+  category: 'Automobile' | 'Motion Graphics' | 'Local Business' | 'F&B' | 'Sports' | 'Cinematic';
   aspect?: 'portrait' | 'landscape';
   description?: string;
 };
@@ -21,66 +21,66 @@ export const sampleVideoEdits: VideoItem[] = [
   {
     id: '1',
     driveId: '1Xk8BBj1oODuVtODq0P7a-lmi1aDDXzmg',
-    title: 'Creative Instagram Reel & Motion FX',
-    category: 'Reels & Shorts',
+    title: 'Cinematic Brand Edit',
+    category: 'Cinematic',
     aspect: 'portrait',
-    description: 'High-retention short form reel with animated captions & dynamic visual hooks.',
+    description: 'Moody cinematic opener with brand identity and atmospheric motion.',
   },
   {
     id: '2',
     driveId: '1DuVbSCxJFcMy9ubBQClx-B1ZCk-ykHW8',
-    title: 'High-ROAS Meta Paid Ad Commercial',
-    category: 'Brand Ads',
+    title: 'Motion Graphics Edit',
+    category: 'Motion Graphics',
     aspect: 'portrait',
-    description: 'Cinematic ad edit engineered for maximum CTR and campaign conversions.',
+    description: 'Clean grid-based motion design with abstract 3D visual FX.',
   },
   {
     id: '3',
     driveId: '11fMqWHObtOI7Vj8VMQa5gs46hlfL6qQK',
-    title: 'Viral Social Campaign & B-Roll Edit',
-    category: 'Reels & Shorts',
+    title: 'Automobile Edits',
+    category: 'Automobile',
     aspect: 'portrait',
-    description: 'Fast-paced viral editing with custom sound design & seamless transitions.',
+    description: 'Before-after car reel with speed ramps, color grade and cinematic motion.',
   },
   {
     id: '4',
     driveId: '1nJ8FJ-w9a3e-vaxjju1wv556I4BgCZd4',
-    title: 'Product Showcase & Brand Film',
-    category: 'Brand Ads',
+    title: 'Local Store Reel',
+    category: 'Local Business',
     aspect: 'portrait',
-    description: 'High-impact commercial video production with visual branding overlays.',
+    description: 'Street-level shop showcase for EV retail and local storefronts.',
   },
   {
     id: '5',
     driveId: '1UU0jXecExI7W6rZRyA8OYinXC19JUIwS',
-    title: 'Podcast Highlights & Master Edit',
-    category: 'Podcast Trailers',
+    title: 'Cinematic Car Edits',
+    category: 'Automobile',
     aspect: 'portrait',
-    description: 'Engaging podcast trailer edit with animated captions & audio mastering.',
+    description: 'High-speed automobile footage with radial blur and punchy grading.',
   },
   {
     id: '6',
     driveId: '1T6TR6_x0sb2qks8szOrXP37dQlD7INdi',
-    title: 'YouTube Longform & Narrative Production',
-    category: 'YouTube & Longform',
+    title: 'Restaurant Edits',
+    category: 'F&B',
     aspect: 'portrait',
-    description: 'Storytelling YouTube video editing with custom motion graphics & pacing.',
+    description: 'Food & beverage motion reel with dynamic camera energy and pacing.',
   },
   {
     id: '7',
     driveId: '1kpgAIGVYt1PX9ZaHxJb4OcNpqlSZzdUh',
-    title: 'Creative Brand & Motion Edit #7',
-    category: 'Reels & Shorts',
+    title: 'Sports Edits',
+    category: 'Sports',
     aspect: 'portrait',
-    description: 'Dynamic motion typography, visual effects & storytelling reel.',
+    description: 'Cricket highlight-style sports edit with phone-screen storytelling.',
   },
   {
     id: '8',
     driveId: '1Q5WEiaRAC3LF_8tgMT03FsF0_-YhkM2N',
-    title: 'High-Impact Social Ad Commercial #8',
-    category: 'Brand Ads',
+    title: 'F&B Before & After',
+    category: 'F&B',
     aspect: 'portrait',
-    description: 'High-converting Meta ad creative with custom sound mastering & pacing.',
+    description: 'Restaurant transformation reel with before-after cuts and timeline FX.',
   },
 ];
 
@@ -88,7 +88,7 @@ export function VideoShowcase() {
   const [activeCategory, setActiveCategory] = React.useState<string>('All');
   const [selectedVideo, setSelectedVideo] = React.useState<VideoItem | null>(null);
 
-  const categories = ['All', 'Reels & Shorts', 'YouTube & Longform', 'Brand Ads', 'Podcast Trailers'];
+  const categories = ['All', 'Automobile', 'Motion Graphics', 'Local Business', 'F&B', 'Sports', 'Cinematic'];
 
   const filteredVideos = activeCategory === 'All'
     ? sampleVideoEdits
@@ -130,7 +130,7 @@ export function VideoShowcase() {
         </div>
 
         {/* 100% Mobile Optimized & Continuous Autoplay Grid */}
-        <div className="mt-10 grid gap-4 grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 md:gap-6">
+        <div className="mt-10 grid gap-3 sm:gap-4 grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 md:gap-6">
           {filteredVideos.map((video, idx) => {
             return (
               <motion.div
@@ -144,11 +144,11 @@ export function VideoShowcase() {
                 {/* 100% Guaranteed Google Drive iFrame Player */}
                 <div className="relative aspect-[9/15] w-full overflow-hidden bg-black">
                   <iframe
-                    src={`https://drive.google.com/file/d/${video.driveId}/preview`}
+                    src={`https://drive.google.com/file/d/${video.driveId}/preview?autoplay=1&mute=1&vq=hd1080`}
                     title={video.title}
                     loading="lazy"
                     className="h-full w-full border-0 group-hover:scale-[1.02] transition-transform duration-500"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; muted"
                     allowFullScreen
                   />
 
@@ -176,7 +176,7 @@ export function VideoShowcase() {
                     {video.category}
                   </span>
 
-                  <h3 className="mt-2 font-display text-xs md:text-sm font-bold text-navy-foreground line-clamp-1 group-hover:text-highlight transition-colors">
+                  <h3 className="mt-2 font-display text-sm md:text-base font-bold text-navy-foreground line-clamp-2 group-hover:text-highlight transition-colors">
                     {video.title}
                   </h3>
 
@@ -243,10 +243,10 @@ export function VideoShowcase() {
               {/* Fullscreen Video iFrame */}
               <div className="relative aspect-[9/16] max-h-[75vh] w-full bg-black sm:aspect-[16/9]">
                 <iframe
-                  src={`https://drive.google.com/file/d/${selectedVideo.driveId}/preview?autoplay=1&vq=hd1080`}
+                  src={`https://drive.google.com/file/d/${selectedVideo.driveId}/preview?autoplay=1&mute=0&vq=hd1080`}
                   title={selectedVideo.title}
                   className="h-full w-full border-0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; muted"
                   allowFullScreen
                 />
               </div>
