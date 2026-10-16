@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, Sparkles, X, ArrowRight, Maximize2, ChevronLeft, ChevronRight, ExternalLink, MessageCircle } from 'lucide-react';
+import { Play, Sparkles, X, ArrowRight, Maximize2, ChevronLeft, ChevronRight, ExternalLink, MessageCircle, Volume2, VolumeX } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SectionHeading } from '@/components/section-heading';
 import { cn } from '@/lib/utils';
@@ -96,6 +96,13 @@ export function VideoShowcase() {
   const [activeCategory, setActiveCategory] = React.useState<string>('All');
   const [selectedVideo, setSelectedVideo] = React.useState<VideoItem | null>(null);
 
+  // Clean custom player states
+  const videoRef = React.useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = React.useState<boolean>(true);
+  const [isMuted, setIsMuted] = React.useState<boolean>(true);
+  const [progress, setProgress] = React.useState<number>(0);
+  const [hasVideoError, setHasVideoError] = React.useState<boolean>(false);
+
   const categories = ['All', 'Automobile', 'Motion Graphics', 'Local Business', 'F&B', 'Sports', 'Cinematic'];
 
   const filteredVideos = activeCategory === 'All'
@@ -119,6 +126,53 @@ export function VideoShowcase() {
     const nextIdx = (currentIndex + 1) % filteredVideos.length;
     setSelectedVideo(filteredVideos[nextIdx]);
   }, [currentIndex, filteredVideos]);
+
+  // Reset video state whenever selected video changes
+  React.useEffect(() => {
+    if (!selectedVideo) return;
+    setIsPlaying(true);
+    setProgress(0);
+    setHasVideoError(false);
+
+    const timer = setTimeout(() => {
+      if (videoRef.current) {
+        videoRef.current.currentTime = 0;
+        videoRef.current.play().catch(() => {
+          if (videoRef.current) {
+            videoRef.current.muted = true;
+            setIsMuted(true);
+            videoRef.current.play().catch(() => {});
+          }
+        });
+      }
+    }, 50);
+
+    return () => clearTimeout(timer);
+  }, [selectedVideo?.id]);
+
+  const togglePlay = () => {
+    if (!videoRef.current) return;
+    if (videoRef.current.paused) {
+      videoRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+    } else {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    }
+  };
+
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!videoRef.current) return;
+    const newMuted = !videoRef.current.muted;
+    videoRef.current.muted = newMuted;
+    setIsMuted(newMuted);
+  };
+
+  const handleTimeUpdate = () => {
+    if (videoRef.current && videoRef.current.duration) {
+      setProgress((videoRef.current.currentTime / videoRef.current.duration) * 100);
+    }
+  };
 
   // Keyboard navigation for reel modal
   React.useEffect(() => {
@@ -147,7 +201,7 @@ export function VideoShowcase() {
               <span className="text-highlight">Reels</span>
             </>
           }
-          subtitle="All video edits in 1080p Full HD & 9:16 vertical reel format. Optimized for Instagram, YouTube Shorts & TikTok with dedicated mobile controls."
+          subtitle="All video edits in 1080p Full HD & 9:16 vertical reel format. Zero clutter, clean mobile playback."
         />
 
         {/* Category Tabs with smooth mobile horizontal scroll */}
@@ -296,7 +350,7 @@ export function VideoShowcase() {
         </div>
       </div>
 
-      {/* 100% Smartphone-Optimized Fullscreen Reel Lightbox Modal with Native Next/Prev Controls */}
+      {/* 100% Smartphone-Optimized Clean Reel Player Modal (Zero Clutter, No Google Drive Capsules) */}
       <AnimatePresence>
         {selectedVideo && (
           <motion.div
@@ -335,9 +389,9 @@ export function VideoShowcase() {
               className="relative flex flex-col w-full max-w-sm sm:max-w-md h-[94vh] max-h-[820px] overflow-hidden rounded-3xl border border-white/20 bg-navy-950 shadow-2xl"
             >
               {/* Modal Top Header Bar */}
-              <div className="flex items-center justify-between px-4 py-2.5 bg-navy-900/95 border-b border-white/10 shrink-0">
+              <div className="flex items-center justify-between px-4 py-2.5 bg-navy-900/95 border-b border-white/10 shrink-0 z-30">
                 <div className="flex items-center gap-2 min-w-0">
-                  <span className="rounded-full bg-accent/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-accent border border-accent/30 shrink-0">
+                  <span className="rounded-full bg-accent/20 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-accent border border-accent/30 shrink-0">
                     {selectedVideo.category}
                   </span>
                   <span className="text-xs font-semibold text-white truncate">
@@ -354,20 +408,87 @@ export function VideoShowcase() {
                 </button>
               </div>
 
-              {/* 9:16 Video Frame with Google Drive 1080p HD Player */}
-              <div className="relative flex-1 w-full bg-black overflow-hidden">
-                <iframe
-                  key={selectedVideo.id}
-                  src={`https://drive.google.com/file/d/${selectedVideo.driveId}/preview?autoplay=1&mute=0&vq=hd1080`}
-                  title={selectedVideo.title}
-                  className="h-full w-full border-0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
+              {/* 9:16 Video Frame with Native Clean HTML5 Player (Zero Google Drive Clutter) */}
+              <div 
+                onClick={togglePlay}
+                className="group/player relative flex-1 w-full bg-black overflow-hidden cursor-pointer select-none"
+              >
+                {!hasVideoError ? (
+                  <video
+                    ref={videoRef}
+                    key={selectedVideo.id}
+                    src={`https://drive.usercontent.google.com/download?id=${selectedVideo.driveId}&export=download&confirm=t`}
+                    poster={`https://lh3.googleusercontent.com/d/${selectedVideo.driveId}=w1080`}
+                    playsInline
+                    autoPlay
+                    muted={isMuted}
+                    loop
+                    onTimeUpdate={handleTimeUpdate}
+                    onPlay={() => setIsPlaying(true)}
+                    onPause={() => setIsPlaying(false)}
+                    onError={() => setHasVideoError(true)}
+                    className="h-full w-full object-contain bg-black"
+                  />
+                ) : (
+                  /* Fallback Player in case user network blocks direct stream */
+                  <iframe
+                    key={`fallback-${selectedVideo.id}`}
+                    src={`https://drive.google.com/file/d/${selectedVideo.driveId}/preview?autoplay=1&mute=0`}
+                    title={selectedVideo.title}
+                    className="h-full w-full border-0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                )}
+
+                {/* Subtle Centered Play Icon Overlay (shown only when paused) */}
+                {!isPlaying && (
+                  <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/35 backdrop-blur-[1px] transition-all z-20">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-accent/90 text-accent-foreground shadow-2xl scale-110">
+                      <Play className="h-8 w-8 fill-current ml-1" />
+                    </div>
+                  </div>
+                )}
+
+                {/* Top Right Clean Sound Toggle Pill */}
+                <div className="absolute top-3 right-3 z-30">
+                  <button
+                    onClick={toggleMute}
+                    className="flex items-center gap-1.5 rounded-full bg-black/80 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur-md border border-white/20 hover:bg-accent hover:text-navy-950 transition-all shadow-lg active:scale-95"
+                    aria-label={isMuted ? "Unmute Sound" : "Mute Sound"}
+                  >
+                    {isMuted ? (
+                      <>
+                        <VolumeX className="h-3.5 w-3.5 text-accent animate-pulse" />
+                        <span>Tap for Sound</span>
+                      </>
+                    ) : (
+                      <>
+                        <Volume2 className="h-3.5 w-3.5 text-emerald-400" />
+                        <span>Sound On</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                {/* Tap Hint for Mobile */}
+                <div className="pointer-events-none absolute bottom-4 inset-x-0 text-center z-20">
+                  <span className="text-[10px] text-white/50 tracking-wider font-mono">
+                    Tap video to {isPlaying ? 'pause' : 'play'}
+                  </span>
+                </div>
+
+                {/* Slim Instagram-Style Progress Line at Bottom Edge of Video */}
+                <div className="absolute bottom-0 inset-x-0 h-1 bg-white/15 z-30">
+                  <div 
+                    className="h-full bg-accent transition-all duration-100 ease-linear shadow-[0_0_8px_rgba(255,185,80,0.8)]"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
               </div>
 
               {/* Dedicated Mobile Next / Previous Navigation Bar */}
-              <div className="p-3 bg-navy-900/95 border-t border-white/10 shrink-0 flex flex-col gap-2.5">
+              <div className="p-3 bg-navy-900/95 border-t border-white/10 shrink-0 flex flex-col gap-2.5 z-30">
                 {/* Big Thumb-Friendly Prev / Next Controls */}
                 <div className="flex items-center justify-between gap-2">
                   <button
@@ -379,7 +500,7 @@ export function VideoShowcase() {
                     <span>Previous Reel</span>
                   </button>
 
-                  <div className="px-2 py-1 rounded-md bg-black/60 border border-white/10 text-[11px] font-mono text-body-muted shrink-0">
+                  <div className="px-2.5 py-1 rounded-md bg-black/60 border border-white/10 text-[11px] font-mono text-accent font-bold shrink-0">
                     {currentIndex + 1} / {filteredVideos.length}
                   </div>
 
