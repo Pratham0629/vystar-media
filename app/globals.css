@@ -759,6 +759,30 @@
   }
 }
 
+/* Mobile GPU performance optimizations - eliminates rendering stalls on phones */
+@media (max-width: 768px) {
+  .hero-green-light-core,
+  .hero-green-light-ambient,
+  .hero-green-light-shine,
+  .hero-green-light-haze,
+  .hero-green-light-falloff {
+    filter: blur(20px) !important;
+    animation: none !important;
+    will-change: auto !important;
+    opacity: 0.5 !important;
+  }
+
+  .hero-blur-cyan,
+  .hero-blur-amber,
+  .hero-blur-green,
+  .hero-blur-purple,
+  .animate-blur-drift {
+    filter: blur(20px) !important;
+    animation: none !important;
+    will-change: auto !important;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
