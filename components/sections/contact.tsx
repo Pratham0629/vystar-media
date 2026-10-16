@@ -59,11 +59,15 @@ export function Contact() {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
   const [status, setStatus] = React.useState<'idle' | 'success' | 'error'>('idle');
   const [submittedName, setSubmittedName] = React.useState('');
+  const [deliveryChannel, setDeliveryChannel] = React.useState<'whatsapp' | 'email'>('whatsapp');
+  const [submittingChannel, setSubmittingChannel] = React.useState<'whatsapp' | 'email' | null>(null);
   const [activeWhatsAppUrl, setActiveWhatsAppUrl] = React.useState<string | null>(null);
 
-  const onSubmit = async (data: FormData) => {
+  const handleSend = async (data: FormData, channel: 'whatsapp' | 'email') => {
     setStatus('idle');
     setSubmittedName(data.name);
+    setDeliveryChannel(channel);
+    setSubmittingChannel(channel);
 
     // 1. Build formatted WhatsApp message
     const waLines = [
@@ -97,7 +101,8 @@ export function Contact() {
           email: data.email,
           service: data.service,
           message: data.message,
-          _subject: `🔥 New Vystar Lead: ${data.name} [${data.service}]`,
+          preferred_channel: channel === 'whatsapp' ? 'WhatsApp' : 'Email',
+          _subject: `🔥 New Vystar Lead [${channel.toUpperCase()}]: ${data.name} (${data.service})`,
         }),
       }).catch((e) => console.warn('Email dispatch notice:', e));
     } catch (err) {
@@ -112,6 +117,7 @@ export function Contact() {
       formData.append('phone', data.phone);
       formData.append('email', data.email);
       formData.append('service', data.service);
+      formData.append('channel', channel);
       formData.append('message', data.message);
 
       fetch('/', {
@@ -132,7 +138,7 @@ export function Contact() {
         email: data.email,
         phone: data.phone,
         company: '',
-        message: `Service: ${data.service}\n\n${data.message}`,
+        message: `Service: ${data.service} | Channel: ${channel.toUpperCase()}\n\n${data.message}`,
       };
       const existing = JSON.parse(localStorage.getItem('vystar_leads') || '[]');
       localStorage.setItem('vystar_leads', JSON.stringify([newLead, ...existing]));
@@ -147,22 +153,25 @@ export function Contact() {
         email: data.email,
         phone: data.phone,
         service: data.service,
-        message: data.message,
+        message: `Channel: ${channel} | ${data.message}`,
       }).catch(() => {});
     } catch (err) {
       console.warn('Google sheets backup notice:', err);
     }
 
-    // 6. Open WhatsApp prefilled to +91 8468962914
-    try {
-      const win = window.open(waUrl, '_blank');
-      if (!win || win.closed || typeof win.closed === 'undefined') {
-        // Fallback if popup blocker intervenes
+    // 6. If WhatsApp was chosen, open WhatsApp prefilled
+    if (channel === 'whatsapp') {
+      try {
+        const win = window.open(waUrl, '_blank');
+        if (!win || win.closed || typeof win.closed === 'undefined') {
+          // Handled via UI button fallback
+        }
+      } catch {
+        // Handled via UI button fallback
       }
-    } catch {
-      // Fallback handled in UI
     }
 
+    setSubmittingChannel(null);
     setStatus('success');
     reset();
   };
@@ -173,7 +182,7 @@ export function Contact() {
         <SectionHeading
           eyebrow="Get In Touch"
           title="Let's build your brand together"
-          subtitle="Fill out the form below. We'll receive your inquiry directly on Gmail (businesswithvystarmedia@gmail.com) and WhatsApp."
+          subtitle="Fill out the form below. Choose whether to send your inquiry directly via WhatsApp or Email."
         />
 
         <div className="mt-14 grid gap-8 lg:grid-cols-[1fr_0.9fr]">
@@ -185,7 +194,7 @@ export function Contact() {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="rounded-3xl border border-border bg-card p-6 sm:p-8"
           >
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
+            <form className="space-y-5" noValidate>
               <Field label="Full Name" error={errors.name?.message}>
                 <Input placeholder="Enter your full name" {...register('name')} />
               </Field>
@@ -221,26 +230,46 @@ export function Contact() {
                 />
               </Field>
 
-              <div className="pt-2">
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full sm:w-auto rounded-full bg-accent text-accent-foreground hover:bg-accent/90 font-semibold shadow-lg shadow-accent/20 h-12 px-8 text-base transition-all hover:scale-[1.02]"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Submitting...
-                    </>
-                  ) : status === 'success' ? (
-                    <>
-                      <CheckCircle2 className="mr-2 h-4 w-4" /> Sent Successfully!
-                    </>
-                  ) : (
-                    <>
-                      <Send className="mr-2 h-4 w-4" /> Send Message
-                    </>
-                  )}
-                </Button>
+              {/* Action Buttons: Send via WhatsApp OR Send via Email */}
+              <div className="pt-3 space-y-3">
+                <Label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                  Choose how to send:
+                </Label>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <Button
+                    type="button"
+                    onClick={handleSubmit((data) => handleSend(data, 'whatsapp'))}
+                    disabled={isSubmitting || submittingChannel !== null}
+                    className="w-full rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold shadow-lg shadow-emerald-500/20 h-12 text-sm gap-2 transition-all hover:scale-[1.02]"
+                  >
+                    {submittingChannel === 'whatsapp' ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" /> Opening WhatsApp...
+                      </>
+                    ) : (
+                      <>
+                        <MessageCircle className="h-4 w-4" /> Send via WhatsApp
+                      </>
+                    )}
+                  </Button>
+
+                  <Button
+                    type="button"
+                    onClick={handleSubmit((data) => handleSend(data, 'email'))}
+                    disabled={isSubmitting || submittingChannel !== null}
+                    className="w-full rounded-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold shadow-lg shadow-accent/20 h-12 text-sm gap-2 transition-all hover:scale-[1.02]"
+                  >
+                    {submittingChannel === 'email' ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" /> Sending Email...
+                      </>
+                    ) : (
+                      <>
+                        <Mail className="h-4 w-4" /> Send via Email
+                      </>
+                    )}
+                  </Button>
+                </div>
               </div>
 
               {status === 'success' && (
@@ -251,25 +280,51 @@ export function Contact() {
                 >
                   <div className="flex items-center gap-2 text-emerald-400 font-semibold text-sm sm:text-base">
                     <CheckCircle2 className="h-5 w-5 shrink-0" />
-                    <span>Inquiry Sent Successfully!</span>
+                    <span>
+                      {deliveryChannel === 'whatsapp'
+                        ? 'Opening WhatsApp with your inquiry...'
+                        : 'Inquiry Sent via Email Successfully!'}
+                    </span>
                   </div>
+
                   <p className="text-xs sm:text-sm text-body-muted leading-relaxed">
-                    Thank you, {submittedName}! Your details have been sent to our team at <strong>businesswithvystarmedia@gmail.com</strong> and WhatsApp.
+                    {deliveryChannel === 'whatsapp' ? (
+                      <>
+                        Thank you, {submittedName}! Your inquiry has been formatted. If WhatsApp didn&apos;t open automatically, tap below:
+                      </>
+                    ) : (
+                      <>
+                        Thank you, {submittedName}! Your inquiry has been sent directly to <strong>businesswithvystarmedia@gmail.com</strong>. We will get back to you shortly.
+                      </>
+                    )}
                   </p>
 
-                  {activeWhatsAppUrl && (
-                    <div className="pt-1 flex flex-wrap gap-2">
+                  <div className="pt-1 flex flex-wrap gap-2">
+                    {activeWhatsAppUrl && deliveryChannel === 'whatsapp' && (
                       <Button
                         asChild
                         size="sm"
                         className="rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold text-xs gap-1.5 shadow-md shadow-emerald-500/20"
                       >
                         <a href={activeWhatsAppUrl} target="_blank" rel="noopener noreferrer">
-                          <MessageCircle className="h-3.5 w-3.5" /> Send on WhatsApp (+91 8468962914)
+                          <MessageCircle className="h-3.5 w-3.5" /> Open WhatsApp (+91 8468962914)
                         </a>
                       </Button>
-                    </div>
-                  )}
+                    )}
+
+                    {deliveryChannel === 'email' && (
+                      <Button
+                        asChild
+                        size="sm"
+                        variant="outline"
+                        className="rounded-full border-border text-xs gap-1.5"
+                      >
+                        <a href="mailto:businesswithvystarmedia@gmail.com">
+                          <Mail className="h-3.5 w-3.5" /> Email: businesswithvystarmedia@gmail.com
+                        </a>
+                      </Button>
+                    )}
+                  </div>
                 </motion.div>
               )}
 
