@@ -27,28 +27,18 @@ import { sendLeadToGoogleSheets } from '@/lib/google-sheets';
 
 const schema = z.object({
   name: z.string().min(2, 'Please enter your name'),
-  email: z.string().email('Enter a valid email'),
   phone: z
     .string()
     .min(7, 'Enter a valid phone number')
     .regex(/^[0-9+\-\s()]+$/, 'Enter a valid phone number'),
-  company: z.string().optional(),
-  service: z.string().min(1, 'Please select a service'),
-  message: z.string().min(10, 'Tell us a bit more (min 10 characters)'),
+  email: z.string().email('Enter a valid email'),
+  message: z.string().min(5, 'Please write your message (min 5 characters)'),
 });
 
 type FormData = z.infer<typeof schema>;
 
-const serviceOptions = [
-  'Digital Marketing',
-  'Traditional Marketing',
-  'Branding Services',
-  'Creative Studio',
-  'AI & Business Solutions',
-  'Not sure yet',
-];
-
 const WHATSAPP_PHONE = '918468962914';
+const CALLMEBOT_API_KEY = process.env.NEXT_PUBLIC_CALLMEBOT_APIKEY || '';
 
 export function Contact() {
   const {
@@ -58,31 +48,46 @@ export function Contact() {
     formState: { errors, isSubmitting },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
   const [status, setStatus] = React.useState<'idle' | 'success' | 'error'>('idle');
-  const [submittedWhatsAppUrl, setSubmittedWhatsAppUrl] = React.useState<string | null>(null);
+  const [submittedName, setSubmittedName] = React.useState('');
 
   const onSubmit = async (data: FormData) => {
     setStatus('idle');
+    setSubmittedName(data.name);
 
-    // Build structured, high-conversion WhatsApp message
-    const waLines = [
-      '🔥 *New Client Inquiry — Vystar Media*',
-      '━━━━━━━━━━━━━━━━━━━━',
-      `👤 *Full Name:* ${data.name}`,
-      `📞 *Phone Number:* ${data.phone}`,
-      `✉️ *Email Address:* ${data.email}`,
-      `🏢 *Company / Brand:* ${data.company?.trim() ? data.company : 'Not specified'}`,
-      `💼 *Service Required:* ${data.service}`,
-      '━━━━━━━━━━━━━━━━━━━━',
-      '📝 *Client Message / Goals:*',
-      data.message,
-      '━━━━━━━━━━━━━━━━━━━━',
-      '🌐 *Sent directly from:* vystarmedia.in',
-    ];
-    const waMessage = waLines.join('\n');
-    const waUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_PHONE}&text=${encodeURIComponent(waMessage)}`;
-    setSubmittedWhatsAppUrl(waUrl);
+    // 1. Direct background CallMeBot WhatsApp delivery to +91 8468962914
+    if (CALLMEBOT_API_KEY) {
+      try {
+        const text = encodeURIComponent(
+          `🔥 *New Client Inquiry — Vystar Media*\n━━━━━━━━━━━━━━━━━━━━\n👤 *Name:* ${data.name}\n📞 *Phone:* ${data.phone}\n✉️ *Email:* ${data.email}\n📝 *Message:* ${data.message}\n━━━━━━━━━━━━━━━━━━━━\n🌐 *Source:* vystarmedia.in`
+        );
+        fetch(`https://api.callmebot.com/whatsapp.php?phone=+${WHATSAPP_PHONE}&text=${text}&apikey=${CALLMEBOT_API_KEY}`, {
+          method: 'GET',
+          mode: 'no-cors',
+        }).catch(() => {});
+      } catch (err) {
+        console.warn('CallMeBot notification notice:', err);
+      }
+    }
 
-    // Save to local storage for 100% offline/admin capture backup
+    // 2. Netlify Cloud Form background delivery
+    try {
+      const formData = new URLSearchParams();
+      formData.append('form-name', 'contact_submissions');
+      formData.append('name', data.name);
+      formData.append('phone', data.phone);
+      formData.append('email', data.email);
+      formData.append('message', data.message);
+
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: formData.toString(),
+      }).catch(() => {});
+    } catch (e) {
+      console.warn('Netlify form notice:', e);
+    }
+
+    // 3. Local storage capture for Admin Dashboard
     try {
       const newLead = {
         id: 'lead-' + Date.now(),
@@ -90,8 +95,8 @@ export function Contact() {
         name: data.name,
         email: data.email,
         phone: data.phone,
-        company: data.company || '',
-        message: `${data.message}\n\nRequested service: ${data.service}`,
+        company: '',
+        message: data.message,
       };
       const existing = JSON.parse(localStorage.getItem('vystar_leads') || '[]');
       localStorage.setItem('vystar_leads', JSON.stringify([newLead, ...existing]));
@@ -99,30 +104,19 @@ export function Contact() {
       console.warn('Local lead storage notice:', e);
     }
 
-    // Background Google Sheets webhook backup (never blocks user)
+    // 4. Background Google Sheets webhook backup
     try {
       sendLeadToGoogleSheets({
         name: data.name,
         email: data.email,
         phone: data.phone,
-        company: data.company || '',
-        service: data.service,
         message: data.message,
       }).catch(() => {});
     } catch (err) {
-      console.warn('Google sheets backup processed:', err);
+      console.warn('Google sheets backup notice:', err);
     }
 
-    // Open WhatsApp directly in new window/tab
-    try {
-      const win = window.open(waUrl, '_blank');
-      if (!win || win.closed || typeof win.closed === 'undefined') {
-        window.location.href = waUrl;
-      }
-    } catch {
-      window.location.href = waUrl;
-    }
-
+    // Done! Visitor stays on website, no visitor WhatsApp opened!
     setStatus('success');
     reset();
   };
@@ -131,9 +125,9 @@ export function Contact() {
     <section className="relative overflow-hidden bg-section-alt py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="Direct WhatsApp Consultation"
+          eyebrow="Contact Us"
           title="Let's build your brand together"
-          subtitle="Fill out the form below. Your inquiry is sent directly to our WhatsApp (+91 8468962914) for an immediate response."
+          subtitle="Fill out the form below. We'll receive your inquiry and contact you right away."
         />
 
         <div className="mt-14 grid gap-8 lg:grid-cols-[1fr_0.9fr]">
@@ -146,96 +140,69 @@ export function Contact() {
             className="rounded-3xl border border-border bg-card p-6 sm:p-8"
           >
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
+              <Field label="Full Name" error={errors.name?.message}>
+                <Input placeholder="Enter your full name" {...register('name')} />
+              </Field>
+
               <div className="grid gap-5 sm:grid-cols-2">
-                <Field label="Full Name" error={errors.name?.message}>
-                  <Input placeholder="Jane Doe" {...register('name')} />
-                </Field>
-                <Field label="Email" error={errors.email?.message}>
-                  <Input type="email" placeholder="jane@company.com" {...register('email')} />
-                </Field>
-              </div>
-              <div className="grid gap-5 sm:grid-cols-2">
-                <Field label="Phone" error={errors.phone?.message}>
+                <Field label="Phone Number" error={errors.phone?.message}>
                   <Input placeholder="+91 98765 43210" {...register('phone')} />
                 </Field>
-                <Field label="Company (optional)">
-                  <Input placeholder="Acme Inc." {...register('company')} />
+                <Field label="Email Address" error={errors.email?.message}>
+                  <Input type="email" placeholder="name@company.com" {...register('email')} />
                 </Field>
               </div>
-              <Field label="Service of Interest" error={errors.service?.message}>
-                <select
-                  {...register('service')}
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                >
-                  <option value="">Select a service…</option>
-                  {serviceOptions.map((s) => (
-                    <option key={s} value={s}>
-                      {s}
-                    </option>
-                  ))}
-                </select>
-              </Field>
-              <Field label="How can we help?" error={errors.message?.message}>
+
+              <Field label="Your Message / Requirement" error={errors.message?.message}>
                 <Textarea
                   rows={5}
-                  placeholder="Tell us about your goals, timeline and challenges..."
+                  placeholder="Tell us about your brand, goals, or what service you need..."
                   {...register('message')}
                 />
               </Field>
 
-              <div className="space-y-3 pt-2">
+              <div className="pt-2">
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full rounded-full bg-emerald-500 text-white hover:bg-emerald-600 sm:w-auto font-semibold shadow-lg shadow-emerald-500/25 h-11 px-6 text-sm transition-all hover:scale-[1.02]"
+                  className="w-full sm:w-auto rounded-full bg-accent text-accent-foreground hover:bg-accent/90 font-semibold shadow-lg shadow-accent/20 h-12 px-8 text-base transition-all hover:scale-[1.02]"
                 >
                   {isSubmitting ? (
                     <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Preparing WhatsApp...
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending...
+                    </>
+                  ) : status === 'success' ? (
+                    <>
+                      <CheckCircle2 className="mr-2 h-4 w-4" /> Sent Successfully!
                     </>
                   ) : (
                     <>
-                      <MessageCircle className="mr-2 h-4 w-4" /> Send Inquiry via WhatsApp
+                      <Send className="mr-2 h-4 w-4" /> Send
                     </>
                   )}
                 </Button>
-
-                <p className="flex items-center gap-2 text-xs text-body-muted">
-                  <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-                  Direct WhatsApp delivery to +91 8468962914 — no login or database required!
-                </p>
               </div>
 
               {status === 'success' && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mt-4 rounded-2xl border border-emerald-500/40 bg-emerald-500/10 p-5 space-y-3"
+                  className="mt-4 rounded-2xl border border-emerald-500/40 bg-emerald-500/10 p-5 space-y-2"
                 >
-                  <div className="flex items-center gap-2 text-emerald-400 font-semibold text-sm">
+                  <div className="flex items-center gap-2 text-emerald-400 font-semibold text-sm sm:text-base">
                     <CheckCircle2 className="h-5 w-5 shrink-0" />
-                    <span>Inquiry formatted! WhatsApp is opening...</span>
+                    <span>Message Sent Successfully!</span>
                   </div>
-                  <p className="text-xs text-body-muted leading-relaxed">
-                    If WhatsApp didn&apos;t open automatically on your device, tap the button below to send your details directly:
+                  <p className="text-xs sm:text-sm text-body-muted leading-relaxed">
+                    Thank you, {submittedName}! Your details have been sent to our team. We will get back to you shortly.
                   </p>
-                  {submittedWhatsAppUrl && (
-                    <Button
-                      asChild
-                      className="w-full sm:w-auto rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold text-xs gap-2 shadow-lg shadow-emerald-500/20"
-                    >
-                      <a href={submittedWhatsAppUrl} target="_blank" rel="noopener noreferrer">
-                        <MessageCircle className="h-4 w-4" /> Open WhatsApp Chat (+91 8468962914)
-                      </a>
-                    </Button>
-                  )}
                 </motion.div>
               )}
 
               {status === 'error' && (
                 <p className="flex items-center gap-2 text-sm text-destructive">
                   <AlertCircle className="h-4 w-4" />
-                  Something went wrong. Please try again or message us directly on WhatsApp.
+                  Something went wrong. Please check your details and try again.
                 </p>
               )}
             </form>
