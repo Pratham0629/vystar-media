@@ -780,3 +780,19 @@
   background: hsl(var(--accent) / 0.3);
   color: hsl(var(--foreground));
 }
+
+/* Zero-Lag Native Precision Orange Cursor */
+@media (pointer: fine) {
+  *, *::before, *::after {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'%3E%3Ccircle cx='10' cy='10' r='5.5' fill='%23FFB950' stroke='%230B0F19' stroke-width='1.5'/%3E%3Ccircle cx='10' cy='10' r='2' fill='%23FFFFFF'/%3E%3C/svg%3E") 10 10, auto !important;
+  }
+
+  a, button, [role="button"], select, option, label, summary, .cursor-pointer, input[type="submit"], input[type="button"], input[type="checkbox"], input[type="radio"] {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Ccircle cx='12' cy='12' r='7.5' fill='%23FFA000' stroke='%23FFFFFF' stroke-width='2'/%3E%3Ccircle cx='12' cy='12' r='2.5' fill='%230B0F19'/%3E%3C/svg%3E") 12 12, pointer !important;
+  }
+
+  input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="search"], textarea {
+    cursor: text !important;
+  }
+}
+
