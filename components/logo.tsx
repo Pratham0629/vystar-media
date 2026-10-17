@@ -35,7 +35,7 @@ export function Logo({
       )}>
         <Image
           src="/images/vystar-emblem.png"
-          alt="Vystar Media Emblem"
+          alt="Vystar Media - Digital Marketing & Branding Agency in Boisar, Maharashtra"
           width={current.imgSize}
           height={current.imgSize}
           className="h-4/5 w-4/5 object-contain p-0.5"

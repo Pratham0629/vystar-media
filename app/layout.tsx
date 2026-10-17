@@ -75,35 +75,73 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
-  name: 'Vystar Media',
-  image: 'https://vystarmedia.in/images/vystar-logo.png',
-  '@id': 'https://vystarmedia.in/#organization',
-  url: 'https://vystarmedia.in',
-  telephone: '+91-8468962914',
-  email: 'businesswithvystarmedia@gmail.com',
-  priceRange: '₹₹',
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'Boisar',
-    addressRegion: 'Maharashtra',
-    addressCountry: 'IN',
-  },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: '19.8036',
-    longitude: '72.7547',
-  },
-  areaServed: ['Boisar', 'Palghar', 'Mumbai', 'Maharashtra', 'India'],
-  knowsAbout: [
-    'Digital Marketing Agency in Boisar',
-    'Digital Marketing Services in Boisar',
-    'SEO Services in Boisar & Mumbai',
-    'Social Media Marketing in Boisar & Mumbai',
-    'Google & Meta Ads Management Boisar',
-    'Branding Agency in Boisar & Mumbai',
-    'Video Production & Editing in Boisar',
-    'Website Development in Boisar & Mumbai',
+  '@graph': [
+    {
+      '@type': 'ProfessionalService',
+      '@id': 'https://vystarmedia.in/#organization',
+      name: 'Vystar Media',
+      image: 'https://vystarmedia.in/images/vystar-logo.png',
+      url: 'https://vystarmedia.in',
+      telephone: '+91-8468962914',
+      email: 'businesswithvystarmedia@gmail.com',
+      priceRange: '₹₹',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Sneha Nagar, Canis Manor, RB: 35',
+        addressLocality: 'Boisar',
+        addressRegion: 'Maharashtra',
+        postalCode: '401501',
+        addressCountry: 'IN',
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: '19.8036',
+        longitude: '72.7547',
+      },
+      openingHoursSpecification: [
+        {
+          '@type': 'OpeningHoursSpecification',
+          dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+          opens: '09:00',
+          closes: '19:00',
+        },
+        {
+          '@type': 'OpeningHoursSpecification',
+          dayOfWeek: ['Saturday'],
+          opens: '10:00',
+          closes: '16:00',
+        },
+      ],
+      areaServed: [
+        { '@type': 'City', name: 'Boisar' },
+        { '@type': 'City', name: 'Palghar' },
+        { '@type': 'City', name: 'Mumbai' },
+        { '@type': 'State', name: 'Maharashtra' },
+        { '@type': 'Country', name: 'India' },
+      ],
+      sameAs: [
+        'https://wa.me/918468962914',
+      ],
+      knowsAbout: [
+        'Digital Marketing Agency in Boisar',
+        'Digital Marketing Services in Boisar',
+        'SEO Services in Boisar & Mumbai',
+        'Social Media Marketing in Boisar & Mumbai',
+        'Google & Meta Ads Management Boisar',
+        'Branding Agency in Boisar & Mumbai',
+        'Video Production & Editing in Boisar',
+        'Website Development in Boisar & Mumbai',
+      ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://vystarmedia.in/#website',
+      url: 'https://vystarmedia.in',
+      name: 'Vystar Media',
+      publisher: {
+        '@id': 'https://vystarmedia.in/#organization',
+      },
+    },
   ],
 };
 

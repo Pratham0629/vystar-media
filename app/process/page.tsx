@@ -5,7 +5,7 @@ import { Values } from '@/components/sections/values';
 import { CTASection } from '@/components/sections/cta';
 
 export const metadata: Metadata = {
-  title: 'Our Marketing Process | Vystar Media, Boisar',
+  title: 'Our Marketing Process | Vystar Media Agency, Boisar',
   description:
     'See how Vystar Media turns research and strategy into creative execution, campaign optimization and transparent reporting for businesses in Boisar, Mumbai and across India.',
   keywords: [

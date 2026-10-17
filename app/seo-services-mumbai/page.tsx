@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Check, ArrowRight, Search, FileText, Settings, MapPin, BarChart3, HelpCircle } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'SEO Services in Boisar & Mumbai | Vystar Media',
+  title: 'SEO Services in Boisar & Mumbai | Vystar Media Agency',
   description:
     'Improve organic visibility with technical SEO, keyword research, on-page optimization and reporting from Vystar Media, serving Boisar, Palghar and Mumbai.',
   keywords: [

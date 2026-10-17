@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Check, ArrowRight, Palette, Compass, Bookmark, Package, Layers, HelpCircle } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Branding Agency in Boisar & Mumbai | Vystar Media',
+  title: 'Branding Agency in Boisar & Mumbai | Vystar Media Studio',
   description:
     'Build a consistent brand identity with strategy, logo design and visual systems from Vystar Media, based in Boisar and serving businesses across the region.',
   keywords: [

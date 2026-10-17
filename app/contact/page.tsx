@@ -3,7 +3,7 @@ import { PageHeader } from '@/components/page-header';
 import { Contact } from '@/components/sections/contact';
 
 export const metadata: Metadata = {
-  title: 'Contact Vystar Media | Boisar Marketing Agency',
+  title: 'Contact Vystar Media | Marketing Agency in Boisar, Palghar',
   description:
     'Contact Vystar Media in Boisar, Maharashtra to discuss SEO, paid ads, social media, branding, video production or automation. Request a tailored consultation.',
   keywords: [

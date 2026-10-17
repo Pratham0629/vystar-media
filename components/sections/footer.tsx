@@ -81,9 +81,21 @@ export function Footer() {
               <Logo isLightText />
             </Link>
             <p className="mt-4 max-w-xs text-sm text-body-muted">
-              Expanding Brands Beyond Boundaries. A full-service marketing &
-              branding agency for ambitious organizations.
+              Expanding Brands Beyond Boundaries. Premier digital marketing & branding agency based in Boisar, serving Palghar, Mumbai & Maharashtra.
             </p>
+            <div className="mt-4 space-y-1.5 text-xs text-body-muted">
+              <p>
+                <span className="text-white font-medium">Office:</span> Sneha Nagar, Canis Manor, RB: 35, Boisar, Maharashtra 401501
+              </p>
+              <p>
+                <span className="text-white font-medium">WhatsApp / Call:</span>{' '}
+                <a href="tel:+918468962914" className="hover:text-accent transition-colors">+91 8468962914</a>
+              </p>
+              <p>
+                <span className="text-white font-medium">Email:</span>{' '}
+                <a href="mailto:businesswithvystarmedia@gmail.com" className="hover:text-accent transition-colors">businesswithvystarmedia@gmail.com</a>
+              </p>
+            </div>
             <div className="mt-5 flex gap-2">
               {socials.map((s) => (
                 <a

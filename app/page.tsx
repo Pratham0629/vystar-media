@@ -3,10 +3,11 @@ import { Hero } from '@/components/sections/hero';
 import { Stats } from '@/components/sections/stats';
 import { VideoShowcase } from '@/components/sections/video-showcase';
 import { Testimonials } from '@/components/sections/testimonials';
+import { CoreServices } from '@/components/sections/core-services';
 import { CTASection } from '@/components/sections/cta';
 
 export const metadata: Metadata = {
-  title: 'Digital Marketing Agency in Boisar | Vystar Media',
+  title: 'Digital Marketing Agency in Boisar | Vystar Media India',
   description:
     'Vystar Media is a Boisar-based marketing agency offering SEO, social media marketing, paid ads, branding and creative services for businesses in Boisar, Palghar and Mumbai.',
   keywords: [
@@ -49,6 +50,7 @@ export default function Home() {
     <>
       <Hero />
       <Stats />
+      <CoreServices />
       <VideoShowcase />
       <Testimonials />
       <CTASection />
