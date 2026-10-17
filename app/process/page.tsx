@@ -44,7 +44,7 @@ export default function ProcessPage() {
         crumb="Process"
         eyebrow="How We Work"
         title="A Clear Process From Strategy to Measurable Growth"
-        subtitle="Eight deliberate stages that turn ambition into measurable revenue: from market discovery and creative execution to conversion optimization and real-time reporting."
+        subtitle="Our proven digital marketing strategy process turns business ambition into measurable revenue: from in-depth market discovery to campaign execution, conversion optimization and transparent reporting."
       />
       <Process />
       <Values />

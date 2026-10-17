@@ -12,11 +12,14 @@ export const metadata: Metadata = {
     "Explore Vystar Media's marketing services in Boisar and Mumbai, including SEO, Google Ads, social media marketing, branding, video production and AI-powered business solutions.",
   keywords: [
     'digital marketing services in Boisar',
+    'advertising agency in Boisar',
+    'digital marketing agency in Mumbai',
+    'digital marketing company in Mumbai',
+    'digital marketing agency in Maharashtra',
+    'marketing services for businesses in Maharashtra',
     'digital marketing agency Boisar',
     'SEO services Boisar',
     'social media marketing Boisar',
-    'digital marketing services Mumbai',
-    'marketing company Palghar',
     'Google Ads agency Boisar',
     'branding agency Boisar',
     'video production Boisar',
@@ -106,7 +109,7 @@ export default function ServicesPage() {
               Explore Our Dedicated Service Hubs
             </h2>
             <p className="mt-2 text-sm text-body-muted">
-              Deep-dive into our specialized services engineered for maximum ROI in Boisar, Palghar & Mumbai.
+              As a premier advertising agency in Boisar and digital marketing agency in Mumbai, we provide end-to-end marketing services for businesses in Maharashtra and Palghar.
             </p>
           </div>
 

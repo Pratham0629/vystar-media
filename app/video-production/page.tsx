@@ -12,8 +12,9 @@ export const metadata: Metadata = {
     "Create reels, brand films and ad creatives with Vystar Media's video production and editing services for businesses in Boisar, Palghar and Mumbai.",
   keywords: [
     'video production company Boisar',
-    'video editing Boisar',
     'Instagram reels editing Mumbai',
+    'reels creation services Palghar',
+    'video editing Boisar',
     'promotional video Palghar',
     'brand video production Maharashtra',
     'video editor Boisar',
@@ -107,7 +108,7 @@ export default function VideoProductionPage() {
                 Video Is the Most Powerful Growth Medium in Digital Marketing
               </h2>
               <p className="mt-4 text-base leading-relaxed text-body-muted">
-                Over 82% of all internet traffic is video. Whether you need viral Instagram Reels for your restaurant in Boisar, a corporate industrial showcase for your Palghar factory, or high-converting Meta ad creatives for Mumbai consumers, Vystar Media produces videos that win attention.
+                As the leading video production company Boisar businesses partner with, Vystar Media specializes in viral Instagram reels editing Mumbai, cinematic commercials, and expert reels creation services Palghar to win attention on every platform.
               </p>
               <div className="mt-8 flex gap-4">
                 <Button asChild size="lg" className="rounded-full bg-accent text-accent-foreground hover:bg-accent/90">

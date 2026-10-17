@@ -56,7 +56,7 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 0.25, ease }}
           className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-body-muted sm:text-lg"
         >
-          A growth-focused agency combining SEO, social media marketing, Google & Meta Ads, branding and video production for businesses in Boisar, Palghar and Mumbai.
+          Boisar&apos;s premier digital marketing company and full-service marketing agency, combining SEO, social media, paid ads, branding and video production for businesses in Boisar, Palghar, Mumbai and across Maharashtra.
         </motion.p>
 
         <motion.div

@@ -106,7 +106,7 @@ export default function WebsiteDevelopmentPage() {
                 Your Website Is the 24/7 Sales Engine of Your Business
               </h2>
               <p className="mt-4 text-base leading-relaxed text-body-muted">
-                A slow or outdated website costs you customers every single day. At Vystar Media, we build modern websites that combine cutting-edge design, instant mobile speeds, and built-in technical SEO to turn visitors into paying clients.
+                As the trusted website development company Boisar businesses rely on, Vystar Media creates high-speed business websites and modern website design Palghar & Mumbai engineered for maximum lead generation.
               </p>
               <div className="mt-8 flex gap-4">
                 <Button asChild size="lg" className="rounded-full bg-accent text-accent-foreground hover:bg-accent/90">

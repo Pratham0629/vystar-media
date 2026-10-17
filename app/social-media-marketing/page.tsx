@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   keywords: [
     'social media marketing agency Boisar',
     'social media management Boisar',
+    'Instagram marketing services Mumbai',
+    'reels creation services Palghar',
+    'social media marketing packages Boisar',
     'Instagram marketing Mumbai',
     'reels creation Palghar',
     'social media advertising Maharashtra',
@@ -112,7 +115,7 @@ export default function SocialMediaPage() {
                 Build a Magnetic Brand That Commands Market Attention
               </h2>
               <p className="mt-4 text-base leading-relaxed text-body-muted">
-                Social media in 2026 isn't just about posting pretty pictures — it's about winning the algorithm with high-retention video reels, authoritative educational content, and conversion-focused paid amplification. Vystar Media manages your complete social presence from Boisar to Mumbai.
+                As the leading social media marketing agency Boisar businesses rely on, Vystar Media delivers end-to-end social media management Boisar, high-engagement Instagram marketing services Mumbai, and viral reels creation services Palghar. Explore our transparent social media marketing packages Boisar designed to scale your business.
               </p>
               <div className="mt-8 flex gap-4">
                 <Button asChild size="lg" className="rounded-full bg-accent text-accent-foreground hover:bg-accent/90">

@@ -10,7 +10,9 @@ export const metadata: Metadata = {
   description:
     'Build a consistent brand identity with strategy, logo design and visual systems from Vystar Media, based in Boisar and serving businesses across the region.',
   keywords: [
+    'branding agency in Boisar',
     'branding agency Boisar',
+    'logo design services Palghar',
     'brand identity design Boisar',
     'logo design Mumbai',
     'branding services Palghar',
@@ -106,7 +108,7 @@ export default function BrandingServicesPage() {
                 Great Brands Aren't Born — They Are Strategically Designed
               </h2>
               <p className="mt-4 text-base leading-relaxed text-body-muted">
-                Your brand is more than just a logo; it is the total emotional and visual impression your business leaves on every customer. At Vystar Media, we craft cohesive brand identities that elevate perception, command premium pricing, and forge enduring market trust.
+                As the leading branding agency in Boisar and premier branding agency Boisar businesses turn to, Vystar Media crafts bespoke brand strategy, distinctive visual identities, and professional logo design services Palghar & Mumbai that command premium value.
               </p>
               <div className="mt-8 flex gap-4">
                 <Button asChild size="lg" className="rounded-full bg-accent text-accent-foreground hover:bg-accent/90">

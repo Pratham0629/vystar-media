@@ -11,8 +11,9 @@ export const metadata: Metadata = {
     'Reach high-intent audiences with Google and Meta ad campaigns, conversion tracking and reporting from Vystar Media, serving Boisar, Palghar and Mumbai.',
   keywords: [
     'Google Ads agency Boisar',
-    'Google Ads management Boisar',
     'Meta Ads agency Mumbai',
+    'PPC management services Maharashtra',
+    'Google Ads management Boisar',
     'Facebook ads Palghar',
     'PPC services Maharashtra',
     'performance marketing Boisar',
@@ -112,7 +113,7 @@ export default function GoogleMetaAdsPage() {
                 Turn Every Rupee of Ad Spend Into Measurable Customer Pipeline
               </h2>
               <p className="mt-4 text-base leading-relaxed text-body-muted">
-                At Vystar Media, we don't measure success by vanity metrics like impressions or clicks. We optimize your Google and Meta ad accounts for one metric: qualified revenue. Whether you are generating local inquiries in Boisar or scaling statewide across Maharashtra, our performance funnels deliver consistent ROI.
+                As a leading Google Ads agency Boisar businesses rely on and a high-converting Meta Ads agency Mumbai companies scale with, Vystar Media provides comprehensive PPC management services Maharashtra to generate predictable customer pipeline and high ROAS.
               </p>
               <div className="mt-8 flex gap-4">
                 <Button asChild size="lg" className="rounded-full bg-accent text-accent-foreground hover:bg-accent/90">

@@ -8,9 +8,10 @@ export const metadata: Metadata = {
   description:
     'Explore tailored marketing plans from Vystar Media, based in Boisar and serving businesses across Maharashtra. Request a quote for SEO, ads, branding and content.',
   keywords: [
+    'digital marketing packages Maharashtra',
     'digital marketing packages in Maharashtra',
-    'digital marketing agency pricing India',
     'social media marketing packages Boisar',
+    'digital marketing agency pricing India',
     'SEO pricing Mumbai',
     'marketing agency quote Palghar',
     'digital marketing pricing Boisar',
@@ -43,7 +44,7 @@ export default function PricingPage() {
         crumb="Pricing"
         eyebrow="Transparent Investment"
         title="Marketing Plans for Businesses in Boisar, Mumbai & Maharashtra"
-        subtitle="Transparent marketing packages tailored to your exact growth stage. Custom-quoted for your goals with no hidden fees and transparent ROI reporting."
+        subtitle="Explore transparent digital marketing packages Maharashtra businesses trust and flexible social media marketing packages Boisar brands scale with — custom-quoted for measurable ROI."
       />
       <Pricing />
       <CTASection />

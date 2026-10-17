@@ -11,6 +11,9 @@ export const metadata: Metadata = {
     'Improve organic visibility with technical SEO, keyword research, on-page optimization and reporting from Vystar Media, serving Boisar, Palghar and Mumbai.',
   keywords: [
     'SEO services in Boisar',
+    'SEO company in Boisar',
+    'local SEO services in Palghar',
+    'SEO services in Palghar',
     'SEO company Boisar',
     'local SEO services Palghar',
     'SEO agency Mumbai',
@@ -106,7 +109,7 @@ export default function SeoServicesPage() {
                 Turn Google Search into Your Most Reliable Customer Acquisition Engine
               </h2>
               <p className="mt-4 text-base leading-relaxed text-body-muted">
-                When customers in Boisar, Palghar or Mumbai search for what you sell, does your business appear on page 1? At Vystar Media, we build data-driven SEO campaigns that combine deep keyword research, technical performance, and high-authority local optimization.
+                As the leading SEO company in Boisar, Vystar Media provides cutting-edge SEO services in Boisar, professional SEO services in Palghar, and local SEO services in Palghar & Mumbai to dominate page 1 search results.
               </p>
               <div className="mt-6 flex flex-wrap gap-4 text-sm font-semibold text-white">
                 <span className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 border border-white/10">

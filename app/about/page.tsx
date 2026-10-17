@@ -11,12 +11,13 @@ export const metadata: Metadata = {
     'Meet Vystar Media, a Boisar-based marketing agency combining digital strategy, branding, creative production and automation for businesses in Boisar, Palghar and Mumbai.',
   keywords: [
     'marketing agency in Boisar',
-    'digital marketing company Boisar',
+    'digital marketing company in Boisar',
+    'digital marketing agency in Palghar',
+    'digital marketing agency in Maharashtra',
+    'digital marketing agency in Mumbai',
+    'advertising agency in Boisar',
     'branding agency Boisar',
-    'advertising agency Palghar',
     'marketing agency Mumbai',
-    'digital marketing Maharashtra',
-    'SEO agency Boisar',
     'creative agency Boisar',
   ],
   alternates: {
