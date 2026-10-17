@@ -4,23 +4,35 @@ import { Pricing } from '@/components/sections/pricing';
 import { CTASection } from '@/components/sections/cta';
 
 export const metadata: Metadata = {
-  title: 'Digital Marketing Packages & Pricing — Vystar Media',
+  title: 'Digital Marketing Packages in Maharashtra | Vystar Media',
   description:
-    'Plans that scale with your ambition. Custom-quoted for your goals. No hidden fees, no surprises — just a tailored proposal aligned to your scope and outcomes.',
+    'Explore tailored marketing plans from Vystar Media, based in Boisar and serving businesses across Maharashtra. Request a quote for SEO, ads, branding and content.',
   keywords: [
-    'Digital Marketing Pricing',
-    'Digital Marketing Packages',
-    'Digital Marketing Services Pricing',
-    'SEO Packages',
-    'Social Media Marketing Packages',
-    'Website Development Pricing',
-    'Google Ads Management Pricing',
-    'Meta Ads Pricing',
-    'Branding Packages',
-    'Marketing Service Packages',
+    'digital marketing packages in Maharashtra',
+    'digital marketing agency pricing India',
+    'social media marketing packages Boisar',
+    'SEO pricing Mumbai',
+    'marketing agency quote Palghar',
+    'digital marketing pricing Boisar',
+    'branding packages Maharashtra',
   ],
   alternates: {
     canonical: 'https://vystarmedia.in/pricing',
+  },
+  openGraph: {
+    title: 'Digital Marketing Packages in Maharashtra | Vystar Media',
+    description:
+      'Explore tailored marketing plans from Vystar Media, based in Boisar and serving businesses across Maharashtra. Request a quote for SEO, ads, branding and content.',
+    url: 'https://vystarmedia.in/pricing',
+    siteName: 'Vystar Media',
+    images: [
+      {
+        url: 'https://vystarmedia.in/images/vystar-logo.png',
+        width: 1200,
+        height: 630,
+        alt: 'Vystar Media digital marketing packages; marketing plan comparison',
+      },
+    ],
   },
 };
 
@@ -29,9 +41,9 @@ export default function PricingPage() {
     <>
       <PageHeader
         crumb="Pricing"
-        eyebrow="Pricing"
-        title="Plans that scale with your ambition"
-        subtitle="Custom-quoted for your goals. No hidden fees, no surprises — just a tailored proposal aligned to your scope and outcomes."
+        eyebrow="Transparent Investment"
+        title="Marketing Plans for Businesses in Boisar, Mumbai & Maharashtra"
+        subtitle="Transparent marketing packages tailored to your exact growth stage. Custom-quoted for your goals with no hidden fees and transparent ROI reporting."
       />
       <Pricing />
       <CTASection />

@@ -6,26 +6,36 @@ import { Industries } from '@/components/sections/industries';
 import { CTASection } from '@/components/sections/cta';
 
 export const metadata: Metadata = {
-  title: 'Top Digital Marketing Company & Branding Agency in Mumbai — Vystar Media',
+  title: 'About Vystar Media | Marketing Agency in Boisar',
   description:
-    'Vystar Media is a premier Online Marketing Agency in Mumbai & Digital Marketing Company in India. Where creativity, technology & strategy converge.',
+    'Meet Vystar Media, a Boisar-based marketing agency combining digital strategy, branding, creative production and automation for businesses in Boisar, Palghar and Mumbai.',
   keywords: [
-    'Digital Marketing Company in Mumbai',
-    'Digital Marketing Services in Mumbai',
-    'SEO Agency in Mumbai',
-    'SEO Services in Mumbai',
-    'Social Media Marketing Agency in Mumbai',
-    'Performance Marketing Agency in Mumbai',
-    'Branding Agency in Mumbai',
-    'AI Marketing Agency in Mumbai',
-    'Online Marketing Agency in Mumbai',
-    'Digital Marketing Company in India',
-    'Best Digital Marketing Company',
-    'Digital Branding',
-    'Local SEO Services',
+    'marketing agency in Boisar',
+    'digital marketing company Boisar',
+    'branding agency Boisar',
+    'advertising agency Palghar',
+    'marketing agency Mumbai',
+    'digital marketing Maharashtra',
+    'SEO agency Boisar',
+    'creative agency Boisar',
   ],
   alternates: {
     canonical: 'https://vystarmedia.in/about',
+  },
+  openGraph: {
+    title: 'About Vystar Media | Marketing Agency in Boisar',
+    description:
+      'Meet Vystar Media, a Boisar-based marketing agency combining digital strategy, branding, creative production and automation for businesses in Boisar, Palghar and Mumbai.',
+    url: 'https://vystarmedia.in/about',
+    siteName: 'Vystar Media',
+    images: [
+      {
+        url: 'https://vystarmedia.in/images/vystar-logo.png',
+        width: 1200,
+        height: 630,
+        alt: 'Vystar Media marketing strategy team; Vystar Media creative team',
+      },
+    ],
   },
 };
 
@@ -35,8 +45,8 @@ export default function AboutPage() {
       <PageHeader
         crumb="About"
         eyebrow="About Vystar Media"
-        title="Where creativity, technology & strategy converge"
-        subtitle="A growth-focused marketing company that combines creativity, technology, and strategy to expand brands beyond boundaries."
+        title="A Growth-Focused Marketing Agency Based in Boisar"
+        subtitle="Combining cutting-edge digital strategy, high-conversion branding, creative video production and automation for businesses across Boisar, Palghar, Mumbai and Maharashtra."
       />
       <FoundersVision />
       <Milestones />

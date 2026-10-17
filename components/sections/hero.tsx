@@ -30,7 +30,7 @@ export function Hero() {
           <div className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-white p-1 shadow-md shadow-accent/20 ring-1 ring-accent/40">
             <Image
               src="/images/vystar-emblem.png"
-              alt="Vystar Media Emblem"
+              alt="Vystar Media digital marketing team; branding and creative studio; social media video production"
               width={48}
               height={48}
               className="h-full w-full object-contain"
@@ -44,10 +44,10 @@ export function Hero() {
           initial={{ opacity: 0, y: 32, filter: 'blur(10px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 0.8, delay: 0.1, ease }}
-          className="font-display text-4xl font-semibold leading-[1.1] tracking-tight text-balance sm:text-5xl md:text-6xl lg:text-[4.5rem]"
+          className="font-display text-4xl font-semibold leading-[1.1] tracking-tight text-balance sm:text-5xl md:text-6xl lg:text-[4.2rem]"
         >
-          The Marketing System for{' '}
-          <span className="text-gradient-multi">Ambitious Brands</span>
+          Digital Marketing & Branding Agency in{' '}
+          <span className="text-gradient-multi">Boisar, Maharashtra</span>
         </motion.h1>
 
         <motion.p
@@ -56,7 +56,7 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 0.25, ease }}
           className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-body-muted sm:text-lg"
         >
-          We build and run the marketing machine that earns attention. From production to distribution, across every platform you need to win.
+          A growth-focused agency combining SEO, social media marketing, Google & Meta Ads, branding and video production for businesses in Boisar, Palghar and Mumbai.
         </motion.p>
 
         <motion.div

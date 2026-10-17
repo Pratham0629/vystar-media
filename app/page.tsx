@@ -6,35 +6,38 @@ import { Testimonials } from '@/components/sections/testimonials';
 import { CTASection } from '@/components/sections/cta';
 
 export const metadata: Metadata = {
-  title: 'Digital Marketing Company in Mumbai & India | Best SEO & Branding Agency — Vystar Media',
+  title: 'Digital Marketing Agency in Boisar | Vystar Media',
   description:
-    'Vystar Media is a leading Digital Marketing Company in Mumbai & India offering high-performance Digital Marketing Services in Mumbai, SEO Agency in Mumbai, Social Media Marketing, Performance Marketing, and Branding Agency in Mumbai.',
+    'Vystar Media is a Boisar-based marketing agency offering SEO, social media marketing, paid ads, branding and creative services for businesses in Boisar, Palghar and Mumbai.',
   keywords: [
-    'Digital Marketing Company in Mumbai',
-    'Digital Marketing Services in Mumbai',
-    'SEO Agency in Mumbai',
-    'SEO Services in Mumbai',
-    'Social Media Marketing Agency in Mumbai',
-    'Performance Marketing Agency in Mumbai',
-    'Branding Agency in Mumbai',
-    'AI Marketing Agency in Mumbai',
-    'Online Marketing Agency in Mumbai',
-    'Digital Marketing Company in India',
-    'Digital Marketing Agency',
-    'SEO Services',
-    'Social Media Marketing',
-    'Meta Ads',
-    'Google Ads',
-    'Website Development',
-    'Branding Services',
-    'Performance Marketing',
-    'Content Marketing',
-    'Lead Generation',
-    'Local SEO',
-    'PPC Management',
+    'digital marketing agency in Boisar',
+    'digital marketing company in Boisar',
+    'digital marketing agency in Mumbai',
+    'marketing agency in Palghar',
+    'digital marketing services in Maharashtra',
+    'branding agency in Boisar',
+    'SEO services Boisar',
+    'social media marketing Boisar',
+    'performance marketing Palghar',
+    'video production Boisar',
   ],
   alternates: {
-    canonical: 'https://vystarmedia.in',
+    canonical: 'https://vystarmedia.in/',
+  },
+  openGraph: {
+    title: 'Digital Marketing Agency in Boisar | Vystar Media',
+    description:
+      'Vystar Media is a Boisar-based marketing agency offering SEO, social media marketing, paid ads, branding and creative services for businesses in Boisar, Palghar and Mumbai.',
+    url: 'https://vystarmedia.in/',
+    siteName: 'Vystar Media',
+    images: [
+      {
+        url: 'https://vystarmedia.in/images/vystar-logo.png',
+        width: 1200,
+        height: 630,
+        alt: 'Vystar Media digital marketing team; branding and creative studio; social media video production',
+      },
+    ],
   },
 };
 

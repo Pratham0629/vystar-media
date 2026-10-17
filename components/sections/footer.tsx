@@ -100,19 +100,39 @@ export function Footer() {
 
           <div>
             <h4 className="font-display text-sm font-semibold uppercase tracking-wide text-accent">
-              Services
+              Core Services
             </h4>
             <ul className="mt-4 space-y-2.5 text-sm">
-              {services.map((s) => (
-                <li key={s.id}>
-                  <Link
-                    href="/services"
-                    className="text-body-muted transition-colors hover:text-highlight"
-                  >
-                    {s.title}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link href="/seo-services-mumbai" className="text-body-muted transition-colors hover:text-highlight">
+                  SEO Services in Boisar & Mumbai
+                </Link>
+              </li>
+              <li>
+                <Link href="/social-media-marketing" className="text-body-muted transition-colors hover:text-highlight">
+                  Social Media Marketing
+                </Link>
+              </li>
+              <li>
+                <Link href="/google-meta-ads" className="text-body-muted transition-colors hover:text-highlight">
+                  Google & Meta Ads
+                </Link>
+              </li>
+              <li>
+                <Link href="/branding-services" className="text-body-muted transition-colors hover:text-highlight">
+                  Branding & Logo Design
+                </Link>
+              </li>
+              <li>
+                <Link href="/video-production" className="text-body-muted transition-colors hover:text-highlight">
+                  Video Production & Reels
+                </Link>
+              </li>
+              <li>
+                <Link href="/website-development" className="text-body-muted transition-colors hover:text-highlight">
+                  Website Development
+                </Link>
+              </li>
             </ul>
           </div>
 

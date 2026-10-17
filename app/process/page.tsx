@@ -5,21 +5,35 @@ import { Values } from '@/components/sections/values';
 import { CTASection } from '@/components/sections/cta';
 
 export const metadata: Metadata = {
-  title: 'Our Process — A Proven Path From Idea to Impact — Vystar Media',
+  title: 'Our Marketing Process | Vystar Media, Boisar',
   description:
-    'Eight deliberate steps that turn ambition into measurable growth — each with a clear deliverable and timeline.',
+    'See how Vystar Media turns research and strategy into creative execution, campaign optimization and transparent reporting for businesses in Boisar, Mumbai and across India.',
   keywords: [
-    'Digital Marketing Process',
-    'Marketing Strategy Process',
-    'Digital Marketing Workflow',
-    'Digital Marketing Solutions',
-    'Marketing Project Process',
-    'Growth Strategy',
-    'Business Growth Process',
-    'Digital Growth Strategy',
+    'digital marketing strategy process',
+    'marketing campaign process Maharashtra',
+    'SEO strategy process',
+    'performance marketing optimization',
+    'marketing reporting Boisar',
+    'digital growth strategy Mumbai',
+    'marketing workflow Boisar',
   ],
   alternates: {
     canonical: 'https://vystarmedia.in/process',
+  },
+  openGraph: {
+    title: 'Our Marketing Process | Vystar Media, Boisar',
+    description:
+      'See how Vystar Media turns research and strategy into creative execution, campaign optimization and transparent reporting for businesses in Boisar, Mumbai and across India.',
+    url: 'https://vystarmedia.in/process',
+    siteName: 'Vystar Media',
+    images: [
+      {
+        url: 'https://vystarmedia.in/images/vystar-logo.png',
+        width: 1200,
+        height: 630,
+        alt: 'Vystar Media marketing planning process; campaign performance reporting dashboard',
+      },
+    ],
   },
 };
 
@@ -29,8 +43,8 @@ export default function ProcessPage() {
       <PageHeader
         crumb="Process"
         eyebrow="How We Work"
-        title="A proven path from idea to impact"
-        subtitle="Eight deliberate steps that turn ambition into measurable growth — each with a clear deliverable and timeline."
+        title="A Clear Process From Strategy to Measurable Growth"
+        subtitle="Eight deliberate stages that turn ambition into measurable revenue: from market discovery and creative execution to conversion optimization and real-time reporting."
       />
       <Process />
       <Values />
